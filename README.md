@@ -9,10 +9,10 @@ Many people want to buy products but prefer to wait for a price drop. Money has 
 - Overpaying for Products: Shoppers might pay more than necessary without price comparison.
 ## Our Solution – The Price-Matching App
 **To solve this, our app will:**
-✅ Compare prices across multiple retailers and give them the best value.
-✅ Save items users are interested in.
-✅ Notify them when the price drops.
-✅ Help them shop smarter with real-time updates.
+- Compare prices across multiple retailers and give them the best value.
+- Save items users are interested in.
+- Notify them when the price drops.
+- Help them shop smarter with real-time updates.
 
 This app will simplify online shopping, ensuring users get the best deals without constant price-checking.
 
