@@ -3,10 +3,10 @@
 ## Problem & Solution
 Many people want to buy products but prefer to wait for a price drop. Money has become an important part of our lives in 2025. However, tracking prices manually across platforms like Amazon, Walmart, and Costco is time-consuming and frustrating. In the fast-paced lifestyle we have now, we need to find solutions that allow people to save their much valued time.
 ## Common Problems Shoppers Face:
-Price Changes Frequently: Customers miss out on the best deals due to unpredictable discounts.
-Forgetting Saved Items: Many add products to their carts but forget to check back.
-Lack of Notifications: Most platforms don’t alert users when prices drop.
-Overpaying for Products: Shoppers might pay more than necessary without price comparison.
+- Price Changes Frequently: Customers miss out on the best deals due to unpredictable discounts.
+- Forgetting Saved Items: Many add products to their carts but forget to check back.
+- Lack of Notifications: Most platforms don’t alert users when prices drop.
+- Overpaying for Products: Shoppers might pay more than necessary without price comparison.
 ## Our Solution – The Price-Matching App
 **To solve this, our app will:**
 ✅ Compare prices across multiple retailers and give them the best value.
@@ -16,6 +16,7 @@ Overpaying for Products: Shoppers might pay more than necessary without price co
 
 This app will simplify online shopping, ensuring users get the best deals without constant price-checking.
 
+## Roles and Responsibilities
 ![sample](./sample_assets/roles.png)
 
 # Project Elements
@@ -41,25 +42,26 @@ This app will simplify online shopping, ensuring users get the best deals withou
 - Implement proper input validation to prevent any form of code injection
 - Secure the back-end server with proper authentication and communication encryption
 
+## Milestones and Deadlines
 ![milestonePNG](./sample_assets/milestones.png)
 
 # Potential Risks
-## Website Blocking Web Scrapers: Some platforms may block price-scraping attempts.
+####  Website Blocking Web Scrapers: Some platforms may block price-scraping attempts.
 Mitigation: Use API access where available, rotate user agents and respect robots.txt.
-## Delayed Price Updates: Prices may change frequently, affecting accuracy.
+#### Delayed Price Updates: Prices may change frequently, affecting accuracy.
 Mitigation: Optimize web scraping frequency and use caching techniques.
-## Security Concerns: Handling user authentication securely.
+#### Security Concerns: Handling user authentication securely.
 Mitigation: Use OAuth or JWT authentication, HTTPS, and secure data encryption, Obfuscation of critical database entries.
-## Notification Delivery Issues: Emails might land in spam.
+#### Notification Delivery Issues: Emails might land in spam.
 Mitigation: Implement verified SMTP services like SendGrid or AWS SES.
 
 # Communication & Work Plan
-## Meetings:
+#### Meetings:
 Weekly team meetings every Tuesday at 12:15 PM In a student meeting Room, Sault College Toronto campus.
 Mid-week check-ins on Slack.
-## Task Management:
+#### Task Management:
 Use Notion to track task assignments and progress.
-## Collaboration Tools:
+#### Collaboration Tools:
 GitHub for version control.
 Google Docs for documentation.
 Slack/WhatsApp for quick discussions.
