@@ -5,6 +5,7 @@ interface Product {
     id: number;
     title: string;
     description: string;
+    image: string;
 }
 
 
@@ -36,7 +37,7 @@ function ShopMatt() {
             {/* Results */}
             <div className="border border-green-400 flex flex-col justify-center items-center m-10 p-5 gap-10">
                 <h2 className="text-2xl font-bold">Results</h2>
-                <div id="shop-container" className="flex flex-row flex-wrap gap-4">
+                <div id="shop-container" className="flex flex-row flex-wrap gap-6">
                     {products.map(product => (
                         <ProductCardMatt key={product.id} product={product} />
                     ))}
