@@ -1,9 +1,12 @@
 import '../App.css'
+import { useNavigate } from 'react-router-dom'
 
 function HomeMatt() {
+  const navigate = useNavigate();
+
 
   const handleClick = () => {
-    alert("Hello!")
+    navigate('/shop');
   }
 
   return (

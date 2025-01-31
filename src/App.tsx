@@ -1,20 +1,18 @@
 import './App.css'
-import CustomNav from './components/CustomNav'
-import HomeMatt from './components/HomeMatt'
+import {CustomNav, HomeMatt, ShopMatt} from './components'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
 
 
   return (
-    <>
+    <Router>
       <CustomNav />
-      <Router>
-        <Routes>
-          <Route path='/' element={<HomeMatt />} />
-        </Routes>
-      </Router>
-    </>
+      <Routes>
+        <Route path='/' element={<HomeMatt />} />
+        <Route path='/shop' element={<ShopMatt />} />
+    </Routes>
+    </Router>
   )
 }
 
