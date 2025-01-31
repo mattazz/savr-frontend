@@ -1,4 +1,4 @@
-function Navbar(){
+function CustomNav(){
     return(
         <>
         <div>
@@ -10,4 +10,4 @@ function Navbar(){
     )
 }
 
-export default Navbar;
+export default CustomNav;
