@@ -1,6 +1,24 @@
 import ProductCardMatt from "./ProductCardMatt";
+import { useEffect, useState } from "react";
+
+interface Product {
+    id: number;
+    title: string;
+    description: string;
+}
+
 
 function ShopMatt() {
+    const fakeProductsURL = "https://fakestoreapi.com/products/"
+
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        fetch(fakeProductsURL)
+            .then(response => response.json())
+            .then(data => setProducts(data))
+            .catch(error => console.error("Error fetching products:", error));
+    }, []);
     return (
         <>
             <div className='flex justify-center border border-red-500'>
@@ -19,18 +37,9 @@ function ShopMatt() {
             <div className="border border-green-400 flex flex-col justify-center items-center m-10 p-5 gap-10">
                 <h2 className="text-2xl font-bold">Results</h2>
                 <div id="shop-container" className="flex flex-row flex-wrap gap-4">
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-
+                    {products.map(product => (
+                        <ProductCardMatt key={product.id} product={product} />
+                    ))}
                 </div>
             </div>
 
