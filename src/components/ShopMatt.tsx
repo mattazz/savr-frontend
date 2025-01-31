@@ -5,8 +5,8 @@ function ShopMatt() {
         <>
             <div className='flex justify-center border border-red-500'>
                 <div className='flex flex-col text-center w-3/4 border border-red-500 '>
-                    <h1 className='text-8xl font-bold'>SAVR</h1>
-                    <p className='font-bold'>All the prices you need blabalbla.</p>
+                    <h1 className='text-8xl font-bold text-shadow-white'>SAVR</h1>
+                    <p className='font-bold'>All the prices in a click.</p>
                     <div className='border-red-500 border p-4 m-4'>
                         <form action="" className=' flex flex-row gap-2 border border-red-500 items-center'>
                             <input type="text" placeholder='What are you looking for 😉' className='p-2 border rounded w-full' />
@@ -30,11 +30,7 @@ function ShopMatt() {
                     <ProductCardMatt />
                     <ProductCardMatt />
                     <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
-                    <ProductCardMatt />
+
                 </div>
             </div>
 

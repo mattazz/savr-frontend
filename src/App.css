@@ -6,3 +6,20 @@
 body {
     background-color: rgb(241, 227, 26);
 }
+
+.text-shadow-white{
+    text-shadow: 8px 10px 1px white;
+}
+
+.box-shadow-black{
+    box-shadow: 4px 5px 1px black;
+}
+
+.box-shadow-white {
+    box-shadow: 4px 5px 1px white;
+}
+
+.hover\:box-shadow-black:hover{
+    @apply box-shadow-black;
+}
+
