@@ -17,7 +17,7 @@ function CustomNav() {
                             <Link to="/" className="text-white hover:text-gray-400">Home</Link>
                         </li>
                         <li>
-                            <Link to="/account" className="text-white hover:text-gray-400">My Account</Link>
+                            <Link to="/login" className="text-white hover:text-gray-400">Login</Link>
                         </li>
                         
                     </ul>

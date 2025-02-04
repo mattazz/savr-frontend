@@ -1,5 +1,5 @@
 import './App.css'
-import {CustomNav, HomeMatt, ShopMatt} from './components'
+import {CustomNav, HomeMatt, ShopMatt, Login, Register} from './components'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -11,6 +11,8 @@ function App() {
       <Routes>
         <Route path='/' element={<HomeMatt />} />
         <Route path='/shop' element={<ShopMatt />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
     </Routes>
     </Router>
   )

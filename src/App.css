@@ -19,6 +19,14 @@ body {
     box-shadow: 4px 5px 1px white;
 }
 
+.full-page-centered{
+    @apply h-screen flex justify-center items-center border-red-500 border
+}
+
+.h1-custom{
+    @apply text-8xl font-bold text-shadow-white
+}
+
 .hover\:box-shadow-black:hover{
     @apply box-shadow-black;
 }
