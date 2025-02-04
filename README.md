@@ -65,3 +65,7 @@ Use Notion to track task assignments and progress.
 GitHub for version control.
 Google Docs for documentation.
 Slack/WhatsApp for quick discussions.
+
+# Sample Frontend
+![sample](./sample_assets/sample_home.png)
+![sample](./sample_assets/sample_search.png)
