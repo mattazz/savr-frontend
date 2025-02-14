@@ -1,16 +1,23 @@
 import ProductCardMatt from "./ProductCardMatt";
 import { useEffect, useState } from "react";
 
+// interface Product {
+//     id: number;
+//     title: string;
+//     description: string;
+//     image: string;
+// }
+
 interface Product {
     id: number;
-    title: string;
-    description: string;
-    image: string;
+    name: string;
+    regularPrice: number;
+    salePrice: number;
+    highResImage: string;
 }
 
-
 function ShopMatt() {
-    const fakeProductsURL = "https://fakestoreapi.com/products/"
+    const fakeProductsURL = "http://localhost:3000/api/bestbuy/scrape"
 
     const [products, setProducts] = useState<Product[]>([]);
 
