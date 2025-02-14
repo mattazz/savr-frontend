@@ -1,12 +1,7 @@
+// filepath: /Users/mattazada/Desktop/savr-fullstack/savr-frontend/src/components/ShopMatt.tsx
 import ProductCardMatt from "./ProductCardMatt";
 import { useEffect, useState } from "react";
-
-// interface Product {
-//     id: number;
-//     title: string;
-//     description: string;
-//     image: string;
-// }
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface Product {
     id: number;
@@ -16,17 +11,36 @@ interface Product {
     highResImage: string;
 }
 
-function ShopMatt() {
-    const fakeProductsURL = "http://localhost:3000/api/bestbuy/scrape"
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
+function ShopMatt() {
     const [products, setProducts] = useState<Product[]>([]);
+    const query = useQuery();
+    const keyword = query.get('keyword') || '';
+    const [searchKeyword, setSearchKeyword] = useState(keyword);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(fakeProductsURL)
-            .then(response => response.json())
-            .then(data => setProducts(data))
-            .catch(error => console.error("Error fetching products:", error));
-    }, []);
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/bestbuy/scrape?keyword=${keyword}`);
+                const data = await response.json();
+                setProducts(data);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
+
+        fetchProducts();
+    }, [keyword]);
+
+    const handleSearch = (event: React.FormEvent) => {
+        event.preventDefault();
+        navigate(`/shop?keyword=${searchKeyword}`);
+    };
+
     return (
         <>
             <div className='flex justify-center border border-red-500'>
@@ -34,9 +48,15 @@ function ShopMatt() {
                     <h1 className='text-8xl font-bold text-shadow-white'>SAVR</h1>
                     <p className='font-bold'>All the prices in a click.</p>
                     <div className='border-red-500 border p-4 m-4'>
-                        <form action="" className=' flex flex-row gap-2 border border-red-500 items-center'>
-                            <input type="text" placeholder='What are you looking for 😉' className='p-2 border rounded w-full' />
-                            <button className='p-2 bg-black text-white rounded w-1/4 m-auto hover:bg-white hover:text-black transition duration-300'>SEARCH</button>
+                        <form onSubmit={handleSearch} className='flex flex-row gap-2 border border-red-500 items-center'>
+                            <input
+                                type="text"
+                                placeholder='What are you looking for 😉'
+                                className='p-2 border rounded w-full'
+                                value={searchKeyword}
+                                onChange={(e) => setSearchKeyword(e.target.value)}
+                            />
+                            <button type="submit" className='p-2 bg-black text-white rounded w-1/4 m-auto hover:bg-white hover:text-black transition duration-300'>SEARCH</button>
                         </form>
                     </div>
                 </div>
@@ -50,9 +70,8 @@ function ShopMatt() {
                     ))}
                 </div>
             </div>
-
         </>
-    )
+    );
 }
 
 export default ShopMatt;
