@@ -6,10 +6,12 @@ import SearchBar from "./Searchbar";
 
 interface Product {
   id: number;
-  name: string;
-  regularPrice: number;
+  title: string;
+  price: number;
   salePrice: number;
-  highResImage: string;
+  image: string;
+  url: string;
+  source: string;
 }
 
 function useQuery() {
@@ -25,10 +27,14 @@ function ShopMatt() {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/bestbuy/scrape?keyword=${keyword}`,
+          `http://localhost:3000/api/scrape/scrape?keyword=${keyword}`,
         );
         const data = await response.json();
-        setProducts(data);
+        const combinedProducts = [
+          ...data.bestBuy.map((product: Product, index: number) => ({ ...product, id: `bestBuy-${index}`, source: 'BestBuy' })),
+          ...data.giantTiger.map((product: Product, index: number) => ({ ...product, id: `giantTiger-${index}`, source: 'GiantTiger' }))
+        ];
+        setProducts(combinedProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
