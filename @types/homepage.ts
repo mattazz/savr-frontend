@@ -5,5 +5,6 @@ export interface ProductDetails {
   highResImage: string;
 }
 export interface Suggestion {
-  evname: string;
+  name: string;
+  _id:string
 }
