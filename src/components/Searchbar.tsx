@@ -1,14 +1,15 @@
 import React, {useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Suggestion } from "../../@types/homepage.ts";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { backendUrl } from "../config/constants";
+import { Suggestion } from "../../@types/homepage";
 
 export default function SearchBar() {
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
 
-  const [suggestions, setSuggestions] = useState<Suggestion[] | null>(null);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>();
 
   const handleClick = (event: React.FormEvent) => {
     event.preventDefault();
@@ -18,10 +19,10 @@ export default function SearchBar() {
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
     try {
-      const response: AxiosResponse<Suggestion[]> = await axios.get(
-        `${backendUrl}/api/products/autocompletion?query=${keyword}`,
+      const response = await axios.get(
+        `${backendUrl}api/products/autocompletion?query=${keyword}`
       );
-      setSuggestions(response.data);
+      setSuggestions(response.data.suggestions);
     } catch {
       return;
     }
@@ -37,13 +38,12 @@ export default function SearchBar() {
         onChange={handleChange}
         id="searchInput"
         name="searchInput"
-        autoComplete="on"
         list="searchOptions"
       />
       <datalist id="searchOptions">
         {suggestions
           ? suggestions.map((suggestion) => {
-              return <option value={suggestion.evname} />;
+              return <option key={suggestion._id}>{suggestion.name}</option>;
             })
           : ""}
       </datalist>
