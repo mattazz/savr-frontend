@@ -8,7 +8,7 @@ function HomeMatt() {
         <div className="flex flex-col text-center w-1/2">
           <h1 className="h1-custom">SAVR</h1>
           <p className="font-bold">All the prices in a click.</p>
-          <div className="border-red-500 p-4 m-4">
+          <div className=" p-4 m-4">
             <SearchBar />
             <div className="m-10">
               <p>
