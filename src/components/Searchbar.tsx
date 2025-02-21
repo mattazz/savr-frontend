@@ -1,4 +1,3 @@
-import React, {useState } from "react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -20,7 +19,7 @@ export default function SearchBar() {
     setKeyword(e.target.value);
     try {
       const response = await axios.get(
-        `${backendUrl}api/products/autocompletion?query=${keyword}`
+        `${backendUrl}api/products/autocompletion?query=${keyword}`,
       );
       setSuggestions(response.data.suggestions);
     } catch {
