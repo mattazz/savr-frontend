@@ -1,3 +1,4 @@
+import React, {useState } from "react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -32,7 +33,7 @@ export default function SearchBar() {
       <input
         type="text"
         placeholder="What are you looking for 😉"
-        className="p-2 border rounded box-shadow-black"
+        className="p-2  rounded box-shadow-black"
         value={keyword}
         onChange={handleChange}
         id="searchInput"
