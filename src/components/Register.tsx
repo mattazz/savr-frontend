@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { backendUrl } from "../config/constants";
+import axios from "axios";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -22,22 +23,28 @@ function Register() {
     }
 
     try {
-      const response = await fetch(`${backendUrl}api/user/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        navigate("/otp"); // Redirect to OTP page
-      } else {
-        setError(data.message || "Registration failed");
-      }
+      const response = await axios.post(
+        `${backendUrl}api/user/register/ep`,
+        {
+          email,
+          password,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      console.log(response);
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error)) {
+        console.error("❌ Registration failed:", error.response?.data);
 
-      setError("Something went wrong. Please try again.");
+        setError(
+          error.response?.data.error ||
+            "Something went wrong. Please try again.",
+        );
+      } else {
+        setError("Network error. Please check your connection.");
+      }
     }
   };
 
@@ -45,7 +52,7 @@ function Register() {
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-3xl font-semibold mb-5">Register</h1>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 text-lg">{error}</p>}
 
       <form onSubmit={handleRegister} className="flex flex-col gap-5 mt-4 w-80">
         <input
