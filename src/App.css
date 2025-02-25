@@ -2,32 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-    background-color: rgb(244, 197, 56);
+  background-color: rgb(244, 197, 56);
 }
 
-.text-shadow-white{
-    text-shadow: 8px 10px 1px white;
+.text-shadow-white {
+  text-shadow: 8px 10px 1px white;
 }
 
-.box-shadow-black{
-    box-shadow: 4px 5px 1px black;
+.box-shadow-black {
+  box-shadow: 4px 5px 1px black;
 }
 
 .box-shadow-white {
-    box-shadow: 4px 5px 1px white;
+  box-shadow: 4px 5px 1px white;
 }
 
-.full-page-centered{
-    @apply h-screen flex justify-center items-center border-red-500 border
+.full-page-centered {
+  @apply h-screen flex justify-center items-center;
 }
 
-.h1-custom{
-    @apply text-8xl font-bold text-shadow-white
+.h1-custom {
+  @apply text-8xl font-bold text-shadow-white;
 }
 
-.hover\:box-shadow-black:hover{
-    @apply box-shadow-black;
+.hover\:box-shadow-black:hover {
+  @apply box-shadow-black;
 }
-

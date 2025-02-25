@@ -1,10 +1,13 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { backendUrl } from "../config/constants";
 import axios from "axios";
+import { useUser } from "../utils/hooks";
 
 function Register() {
+  const { user, setUser } = useUser();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -12,6 +15,12 @@ function Register() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,9 +40,11 @@ function Register() {
         },
         {
           headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         },
       );
-      console.log(response);
+
+      setUser(response.data);
 
       navigate("/");
     } catch (error) {
