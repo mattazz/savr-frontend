@@ -34,6 +34,8 @@ function Register() {
         },
       );
       console.log(response);
+
+      navigate("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("❌ Registration failed:", error.response?.data);

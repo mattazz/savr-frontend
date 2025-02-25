@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
-import { Suggestion } from "../../@types/homepage";
+import { Suggestion } from "../@types/types";
 
 export default function SearchBar() {
   const [keyword, setKeyword] = useState("");
