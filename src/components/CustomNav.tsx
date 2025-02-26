@@ -7,7 +7,9 @@ function CustomNav() {
     <>
       <nav className="bg-gray-800 p-4">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="text-white text-lg font-bold">SAVR</div>
+          <div className="text-white text-lg font-bold">
+            <a href="/">SAVR</a>
+          </div>
           <ul className="flex gap-5">
             <li>
               <Link to="/aboutUs" className="text-white hover:text-gray-400">
