@@ -5,6 +5,8 @@ export interface User {
   isVerified: boolean;
 }
 export interface UserContextType {
+  loading: boolean;
+  setLoading: (value: boolean) => void;
   user: User | null;
   setUser: (user: User | null) => void;
   logout: () => void;

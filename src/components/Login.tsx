@@ -20,17 +20,20 @@ function Login() {
     setError(""); // Reset previous error
 
     try {
-      const response = await axios.post(`${backendUrl}api/user/login/ep`, {
-        email,
-        password,
-      });
-      console.log(response);
+      const response = await axios.post(
+        `${backendUrl}api/user/login/ep`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true },
+      );
 
       setUser(response.data);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         setError(
-          err.response?.data?.message || "Login failed. Please try again.",
+          err?.response?.data?.message || "Login failed. Please try again.",
         );
       }
     } finally {
@@ -92,7 +95,7 @@ function Login() {
         {/* Google Login Button */}
         <button className="flex items-center justify-center gap-2 bg-white border border-gray-400 shadow-md rounded-sm p-2 hover:bg-gray-100 transition">
           <img src="/googleicon.jpg" alt="Google Logo" className="w-5 h-5" />
-          Login with Google
+          Login with google
         </button>
       </form>
 

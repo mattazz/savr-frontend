@@ -3,6 +3,8 @@ import { CustomNav, HomeMatt, ShopMatt, Login, Register } from "./components";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AccountVerificationPage from "./pages/AccountVerification";
 import RedirectIfLoggedIn from "./utils/redirector";
+import { ProfilePage } from "./pages/ProfilePage";
+import AuthenticatedRoute from "./utils/authchecker";
 
 function App() {
   return (
@@ -12,6 +14,14 @@ function App() {
         <Route path="/" element={<HomeMatt />} />
         <Route path="/shop" element={<ShopMatt />} />
         <Route
+          path="/profile"
+          element={
+            <AuthenticatedRoute>
+              <ProfilePage />
+            </AuthenticatedRoute>
+          }
+        />
+        <Route
           path="/login"
           element={
             <RedirectIfLoggedIn>
@@ -20,7 +30,6 @@ function App() {
           }
         />
         <Route
-          path="/register"
           element={
             <RedirectIfLoggedIn>
               <Register />

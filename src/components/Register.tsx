@@ -46,7 +46,7 @@ function Register() {
         console.error("❌ Registration failed:", error.response?.data);
 
         setError(
-          error.response?.data.error ||
+          error?.response?.data.error ||
             "Something went wrong. Please try again.",
         );
       } else {

@@ -4,33 +4,43 @@ import { UserContext } from "./contextsAndHooks";
 import axios from "axios";
 import { backendUrl } from "./constants";
 
-///this is the user information context
 export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const logout = () => {
     setUser(null);
   };
 
-  //to handle auth persistance in full page reload
   useEffect(() => {
-    (async function () {
+    (async function fetchSession() {
       try {
         const response = await axios.get(
           `${backendUrl}api/user/check-session`,
-          { withCredentials: true },
+          {
+            withCredentials: true,
+            timeout: 5000,
+          },
         );
-        setUser(response.data);
+
+        setUser(response.data.user);
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.log(error);
+          console.error(
+            "Session check failed:",
+            error.response?.data || error.message,
+          );
         }
+      } finally {
+        setLoading(false);
       }
     })();
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout }}>
+    <UserContext.Provider
+      value={{ user, setUser, logout, loading, setLoading }}
+    >
       {children}
     </UserContext.Provider>
   );

@@ -5,6 +5,17 @@ function CustomNav() {
 
   return (
     <>
+      {user && !user.isVerified && (
+        <div className="bg-yellow-100 text-yellow-800 pl-4  border-yellow-600  rounded-lg shadow-md  mx-auto ">
+          <p className="font-medium text-lg">
+            Your email address is not verified,
+          </p>
+          <p className="text-sm">
+            Please check your mailbox to verify your account as unverified
+            accounts are deleted in ten days
+          </p>
+        </div>
+      )}
       <nav className="bg-gray-800 p-4">
         <div className="container mx-auto flex justify-between items-center">
           <div className="text-white text-lg font-bold">
@@ -23,7 +34,7 @@ function CustomNav() {
             </li>
             <li>
               {user ? (
-                <Link to="/Profile" className="text-white hover:text-gray-400">
+                <Link to="/profile" className="text-white hover:text-gray-400">
                   Profile
                 </Link>
               ) : (
@@ -35,17 +46,6 @@ function CustomNav() {
           </ul>
         </div>
       </nav>
-      {user && !user.isVerified && (
-        <div className="bg-yellow-100 text-yellow-800 border-l-4 border-yellow-600 p-4 rounded-lg shadow-md max-w-4xl mx-auto my-6">
-          <p className="font-medium text-lg">
-            Your email address is not verified,
-          </p>
-          <p className="text-sm">
-            Please check your mailbox to verify your account as unverified
-            accounts are deleted in ten days
-          </p>
-        </div>
-      )}
     </>
   );
 }
