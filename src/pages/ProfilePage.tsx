@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
   const { user, logout } = useUser();
-  console.log(user);
 
   const navigate = useNavigate();
 

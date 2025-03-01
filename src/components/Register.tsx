@@ -38,7 +38,7 @@ function Register() {
         },
       );
 
-      setUser(response.data);
+      setUser(response.data.user);
 
       navigate("/");
     } catch (error) {

@@ -8,10 +8,20 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const logout = () => {
-    setUser(null);
+  const logout = async () => {
+    try {
+      await axios.post(
+        `${backendUrl}api/user/logout`,
+        {},
+        { withCredentials: true },
+      );
+      setUser(null);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Logout error:", error.response?.data || error.message);
+      }
+    }
   };
-
   useEffect(() => {
     (async function fetchSession() {
       try {

@@ -38,7 +38,7 @@ function CustomNav() {
                   Profile
                 </Link>
               ) : (
-                <Link to="/Login" className="text-white hover:text-gray-400">
+                <Link to="/login" className="text-white hover:text-gray-400">
                   Login
                 </Link>
               )}
