@@ -13,6 +13,10 @@ function Login() {
 
   const { setUser } = useUser();
 
+  const handleLoginClick = () => {
+    window.location.href = backendUrl + "api/user/auth/google";
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -93,7 +97,10 @@ function Login() {
         </div>
 
         {/* Google Login Button */}
-        <button className="flex items-center justify-center gap-2 bg-white border border-gray-400 shadow-md rounded-sm p-2 hover:bg-gray-100 transition">
+        <button
+          onClick={handleLoginClick}
+          className="flex items-center justify-center gap-2 bg-white border border-gray-400 shadow-md rounded-sm p-2 hover:bg-gray-100 transition"
+        >
           <img src="/googleicon.jpg" alt="Google Logo" className="w-5 h-5" />
           Login with google
         </button>

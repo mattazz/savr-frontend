@@ -5,6 +5,7 @@ import AccountVerificationPage from "./pages/AccountVerification";
 import RedirectIfLoggedIn from "./utils/redirector";
 import { ProfilePage } from "./pages/ProfilePage";
 import AuthenticatedRoute from "./utils/authchecker";
+import TrackProductPage from "./pages/TrackProductPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeMatt />} />
         <Route path="/shop" element={<ShopMatt />} />
+        <Route path="/track" element={<TrackProductPage />} />
         <Route
           path="/profile"
           element={
