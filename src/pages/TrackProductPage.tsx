@@ -1,10 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
+
+interface Product {
+  name: string;
+  brandName: string;
+  priceWithoutEhf: number;
+  regularPrice: number;
+  isOnSale: boolean;
+  saving: number;
+  customerRating: number;
+  customerRatingCount: number;
+  additionalImages: string[];
+}
 
 export default function TrackProductPage() {
   const [productUrl, setProductUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const response = await axios.get(
+          `${backendUrl}api/user/getSavedProduct`,
+        );
+        const userSavedProducts: Product[] = response.data.products;
+        if (userSavedProducts.length > 0) {
+          setProducts([...userSavedProducts]);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    loadData();
+  });
 
   const handleTrackProduct = async () => {
     if (!productUrl.trim()) return;
@@ -12,9 +42,19 @@ export default function TrackProductPage() {
     setIsLoading(true);
 
     try {
-      await axios.post(`${backendUrl}api/products/track-product`, {
-        url: productUrl,
-      });
+      const response = await axios.get(
+        `${backendUrl}api/crawl/BB?url=${productUrl}`,
+      );
+      const resProduct = response.data.product;
+      if (resProduct) {
+        /*
+        setProducts(() => {
+          const newProduct = [...products, resProduct];
+          return newProduct;
+        });
+        */
+        setProducts([...products, resProduct]);
+      }
     } catch (error) {
       console.error("Error tracking product:", error);
     } finally {
@@ -45,6 +85,11 @@ export default function TrackProductPage() {
           {isLoading ? "Tracking..." : "Track Product"}
         </button>
       </div>
+      {products.length > 0 && (
+        <div className="">
+          <img src="" />
+        </div>
+      )}{" "}
     </div>
   );
 }
