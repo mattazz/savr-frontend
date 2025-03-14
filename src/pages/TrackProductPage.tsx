@@ -89,7 +89,6 @@ export default function TrackProductPage() {
           {isLoading ? "Tracking..." : "Track Product"}
         </button>
       </div>
-
       {/* FIXME error somewhere here  */}
       {products.length > 0 && (
         <div className="">
