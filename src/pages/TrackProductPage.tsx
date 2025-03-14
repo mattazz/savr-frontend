@@ -22,10 +22,14 @@ export default function TrackProductPage() {
   useEffect(() => {
     async function loadData() {
       try {
+        // FIXME returning a 404 in front-end but okay in backend
         const response = await axios.get(
-          `${backendUrl}api/user/getSavedProduct`,
+          `${backendUrl}api/user/getSavedProducts`, 
+          {withCredentials: true}
         );
-        const userSavedProducts: Product[] = response.data.products;
+        const userSavedProducts: Product[] = response.data.product;
+        console.log("Fetched products:", response.data);
+
         if (userSavedProducts.length > 0) {
           setProducts([...userSavedProducts]);
         }
@@ -34,7 +38,7 @@ export default function TrackProductPage() {
       }
     }
     loadData();
-  });
+  }, []);
 
   const handleTrackProduct = async () => {
     if (!productUrl.trim()) return;
@@ -85,6 +89,8 @@ export default function TrackProductPage() {
           {isLoading ? "Tracking..." : "Track Product"}
         </button>
       </div>
+
+      {/* FIXME error somewhere here  */}
       {products.length > 0 && (
         <div className="">
           <img src="" />

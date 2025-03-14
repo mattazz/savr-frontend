@@ -43,6 +43,13 @@ function CustomNav() {
                 </Link>
               )}
             </li>
+            <li>
+              {user ? (
+                <Link to="/track" className="text-white hover:text-gray-400">
+                  Saved
+                </Link>
+              ):""}
+            </li>
           </ul>
         </div>
       </nav>
