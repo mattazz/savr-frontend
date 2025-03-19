@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
+import TrackProductsCard from "../components/TrackProductCard";
+
 
 interface Product {
   name: string;
@@ -24,8 +26,8 @@ export default function TrackProductPage() {
       try {
         // FIXME returning a 404 in front-end but okay in backend
         const response = await axios.get(
-          `${backendUrl}api/user/getSavedProducts`, 
-          {withCredentials: true}
+          `${backendUrl}api/user/getSavedProducts`,
+          { withCredentials: true }
         );
         const userSavedProducts: Product[] = response.data.products;
         console.log("Fetched products:", response.data);
@@ -48,7 +50,7 @@ export default function TrackProductPage() {
     try {
       const response = await axios.get(
         `${backendUrl}api/crawl/BB?url=${productUrl}`,
-        {withCredentials: true}
+        { withCredentials: true }
       );
       const resProduct = response.data.product;
       if (resProduct) {
@@ -85,32 +87,26 @@ export default function TrackProductPage() {
         </button>
       </div>
       {products.length > 0 && (
-  <div className="w-full max-w-7xl mx-auto">
-    <h3 className="text-xl font-bold text-gray-800 mb-4 text-center mt-4"  >Saved Products</h3>
-    <ul className="w-full flex flex-wrap gap-4 justify-center ">
-      {products.map((product, index) => (
-        // TODO Make this into a component
-        <li 
-          key={index} 
-          className="p-4 border bg-white rounded-lg w-1/4 flex flex-col items-center shadow-2xl hover:scale-105 transition-all duration-500  "
-        >
-          <h4 className="text-lg font-bold text-center">{product.name}</h4>
-          <p className="text-gray-600">Brand: {product.brandName}</p>
-          <img src={product.additionalImages[0]} alt="" className="w-40 h-40 object-cover rounded-md mb-2" />
-          <p>Price: <span className="font-bold">${product.priceWithoutEhf}</span></p>
-          <p className="text-gray-500 line-through">Regular: ${product.regularPrice}</p>
-          <p className={`text-sm font-semibold ${product.isOnSale ? "text-green-600" : "text-red-600"}`}>
-            On Sale: {product.isOnSale ? "Yes" : "No"}
-          </p>
-          <p className="text-yellow-500">Saving: ${product.saving}</p>
-          <p className="text-sm text-gray-700">
-            Customer Rating: ⭐ {product.customerRating} ({product.customerRatingCount} reviews)
-          </p>
-        </li>
-      ))}
-    </ul>
-  </div>
-)}
+        <div className="w-full max-w-7xl mx-auto">
+          <h3 className="text-xl font-bold text-gray-800 mb-4 text-center mt-4"  >Saved Products</h3>
+          <ul className="w-full flex flex-wrap gap-4 justify-center ">
+            {products.map((product, index) => (
+              <TrackProductsCard
+                index={index}
+                name={product.name}
+                brandName={product.brandName}
+                additionalImages={product.additionalImages}
+                priceWithoutEhf={product.priceWithoutEhf}
+                regularPrice={product.regularPrice}
+                isOnSale={product.isOnSale}
+                saving={product.saving}
+                customerRating={product.customerRating}
+                customerRatingCount={product.customerRatingCount}
+              />
+            ))}
+          </ul>
+        </div>
+      )}
 
     </div>
   );
