@@ -15,8 +15,9 @@ export const ProfilePage = () => {
   }
 
   return (
+    // TODO Issue with styling
     <div className="flex items-center justify-center min-h-screen ">
-      <div className=" shadow-lg rounded-2xl p-6 w-full max-w-md">
+      <div className=" shadow-lg rounded-2xl p-6 w-full max-w-md bg-white">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Profile</h2>
 
         <div className="space-y-4">

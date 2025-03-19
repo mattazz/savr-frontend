@@ -14,6 +14,7 @@ interface Product {
   customerRating: number;
   customerRatingCount: number;
   additionalImages: string[];
+  url: string;
 }
 
 export default function TrackProductPage() {
@@ -24,7 +25,6 @@ export default function TrackProductPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        // FIXME returning a 404 in front-end but okay in backend
         const response = await axios.get(
           `${backendUrl}api/user/getSavedProducts`,
           { withCredentials: true }
@@ -102,6 +102,7 @@ export default function TrackProductPage() {
                 saving={product.saving}
                 customerRating={product.customerRating}
                 customerRatingCount={product.customerRatingCount}
+                url={product.url}
               />
             ))}
           </ul>

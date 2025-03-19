@@ -9,8 +9,11 @@ interface TrackProductCardProps {
     saving: number;
     customerRating: number;
     customerRatingCount: number;
+    url: string;
 }
 
+
+//  TODO Add URL into props for link clicking
 export default function TrackProductsCard({
     index,
     name,
@@ -21,10 +24,11 @@ export default function TrackProductsCard({
     isOnSale,
     saving,
     customerRating,
+    url,
     customerRatingCount }: TrackProductCardProps) {
 
-    const handleDelete = () =>{
-       // TODO  -> I think need the object ID and the user ID in order to delete the product from MongoDB 
+    const handleDelete = () => {
+        // TODO  -> I think need the object ID and the user ID in order to delete the product from MongoDB 
     }
     return (
         <li
@@ -43,7 +47,7 @@ export default function TrackProductsCard({
             {/* <p>Current Price: <span className="font-bold">${priceWithoutEhf}</span></p>
             <p className="text-gray-500 line-through">Regular Price: ${regularPrice}</p> */}
             <p className={`text-sm font-semibold ${isOnSale ? "text-green-600" : "text-red-600"}`}>
-            {isOnSale ? <p className="font-bold">On sale and saving ${saving}</p>: ""}
+                {isOnSale ? <p className="font-bold">On sale and saving ${saving}</p> : ""}
             </p>
             {/* {isOnSale ?
                 <p className="text-yellow-500">Saving: ${saving}</p>
@@ -51,8 +55,10 @@ export default function TrackProductsCard({
             <p className="text-sm text-gray-700">
                 Customer Rating: ⭐ {customerRating} ({customerRatingCount} reviews)
             </p>
-            <button  className="bg-blue-500 text-white rounded-2xl mt-4 p-2 ">View Chart History</button>
-            <button onClick={handleDelete} className="bg-red-500 text-white rounded-2xl p-2 mt-1">Delete Product</button>
+            <button className=" text-white rounded-2xl mt-4 p-2 bg-blue-500 hover:bg-blue-600 transition-all ">View Chart History</button>
+            <button onClick={handleDelete} className="bg-red-500 text-white rounded-2xl p-2 mt-1 hover:bg-red-600 transition-all">Delete Product</button>
+            <a href={url} className=" text-white rounded-2xl mt-1 p-2 bg-green-500 hover:bg-green-600 transition-all ">Buy Now</a>
+
         </li>
 
     )
