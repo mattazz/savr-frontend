@@ -24,7 +24,7 @@ export default function TrackProductsCard({
     customerRatingCount }: TrackProductCardProps) {
 
     const handleDelete = () =>{
-        
+       // TODO  -> I think need the object ID and the user ID in order to delete the product from MongoDB 
     }
     return (
         <li
@@ -51,7 +51,8 @@ export default function TrackProductsCard({
             <p className="text-sm text-gray-700">
                 Customer Rating: ⭐ {customerRating} ({customerRatingCount} reviews)
             </p>
-            <button onClick={handleDelete} className="bg-red-500 text-white rounded-2xl mt-4 p-2">Delete Product</button>
+            <button  className="bg-blue-500 text-white rounded-2xl mt-4 p-2 ">View Chart History</button>
+            <button onClick={handleDelete} className="bg-red-500 text-white rounded-2xl p-2 mt-1">Delete Product</button>
         </li>
 
     )

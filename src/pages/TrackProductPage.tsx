@@ -65,7 +65,7 @@ export default function TrackProductPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-#f4c538">
-      <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
+      <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md my-4">
         <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
           Track a Product
         </h2>
