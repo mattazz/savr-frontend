@@ -30,7 +30,7 @@ export default function TrackProductPage() {
           { withCredentials: true }
         );
         const userSavedProducts: Product[] = response.data.products;
-        console.log("Fetched products:", response.data);
+        // console.log("Fetched products:", response.data);
 
         if (userSavedProducts.length > 0) {
           setProducts([...userSavedProducts]);
