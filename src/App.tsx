@@ -14,7 +14,14 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeMatt />} />
         <Route path="/shop" element={<ShopMatt />} />
-        <Route path="/track" element={<TrackProductPage />} />
+        <Route
+          path="/track"
+          element={
+            <AuthenticatedRoute>
+              <TrackProductPage />
+            </AuthenticatedRoute>
+          }
+        />
         <Route
           path="/profile"
           element={
