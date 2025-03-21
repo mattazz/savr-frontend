@@ -10,10 +10,9 @@ interface TrackProductCardProps {
     customerRating: number;
     customerRatingCount: number;
     url: string;
+    onDelete: () =>void;
 }
 
-
-//  TODO Add URL into props for link clicking
 export default function TrackProductsCard({
     index,
     name,
@@ -25,41 +24,50 @@ export default function TrackProductsCard({
     saving,
     customerRating,
     url,
-    customerRatingCount }: TrackProductCardProps) {
+    customerRatingCount,
+    onDelete
+ }: TrackProductCardProps) {
 
     const handleDelete = () => {
         // TODO  -> I think need the object ID and the user ID in order to delete the product from MongoDB 
+        onDelete();
     }
+
     return (
         <li
             key={index}
-            className="p-4 border bg-white rounded-lg w-1/4 flex flex-col items-center shadow-2xl hover:scale-105 transition-all duration-500  "
+            className="p-6 border bg-white rounded-3xl w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col items-center shadow-lg hover:shadow-2xl transition-shadow duration-300"
         >
-            <h4 className="text-lg font-bold text-center">{name}</h4>
-            <p className="text-gray-600">Brand: {brandName}</p>
-            <img src={additionalImages[0]} alt="" className="w-40 h-40 object-cover rounded-md mb-2" />
-            {isOnSale ?
-                <p>
-                    <span className="text-red-600 line-through mr-2">${regularPrice}</span>
+            <h4 className="text-xl font-bold text-center mb-2">{name}</h4>
+            <p className="text-gray-500 mb-2">Brand: {brandName}</p>
+            <img src={additionalImages[0]} alt="" className="w-40 h-40 object-cover rounded-lg mb-4" />
+            {isOnSale ? (
+                <p className="mb-2">
+                    <span className="text-red-500 line-through mr-2">${regularPrice}</span>
                     <span className="text-black font-bold">${priceWithoutEhf}</span>
-                </p> :
-                <p className="text-black font-bold">${regularPrice}</p>}
-            {/* <p>Current Price: <span className="font-bold">${priceWithoutEhf}</span></p>
-            <p className="text-gray-500 line-through">Regular Price: ${regularPrice}</p> */}
-            <p className={`text-sm font-semibold ${isOnSale ? "text-green-600" : "text-red-600"}`}>
-                {isOnSale ? <p className="font-bold">On sale and saving ${saving}</p> : ""}
-            </p>
-            {/* {isOnSale ?
-                <p className="text-yellow-500">Saving: ${saving}</p>
-                : ""} */}
-            <p className="text-sm text-gray-700">
+                </p>
+            ) : (
+                <p className="text-black font-bold mb-2">${regularPrice}</p>
+            )}
+            {isOnSale && (
+                <p className="text-sm font-semibold text-green-500 mb-2">
+                    On sale and saving ${saving}
+                </p>
+            )}
+            <p className="text-sm text-gray-700 mb-4">
                 Customer Rating: ⭐ {customerRating} ({customerRatingCount} reviews)
             </p>
-            <button className=" text-white rounded-2xl mt-4 p-2 bg-blue-500 hover:bg-blue-600 transition-all ">View Chart History</button>
-            <button onClick={handleDelete} className="bg-red-500 text-white rounded-2xl p-2 mt-1 hover:bg-red-600 transition-all">Delete Product</button>
-            <a href={url} className=" text-white rounded-2xl mt-1 p-2 bg-green-500 hover:bg-green-600 transition-all ">Buy Now</a>
-
+            <div className="flex flex-col gap-2 w-full">
+                <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-all">
+                    View Chart History
+                </button>
+                <button onClick={handleDelete} className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-all">
+                    Delete Product
+                </button>
+                <a href={url} className="w-full bg-green-500 text-white py-2 rounded-lg text-center hover:bg-green-600 transition-all">
+                    Buy Now
+                </a>
+            </div>
         </li>
-
-    )
+    );
 }

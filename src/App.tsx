@@ -6,6 +6,7 @@ import RedirectIfLoggedIn from "./utils/redirector";
 import { ProfilePage } from "./pages/ProfilePage";
 import AuthenticatedRoute from "./utils/authchecker";
 import TrackProductPage from "./pages/TrackProductPage";
+import TrackProductRedirect from "./pages/TrackProductRedirect";
 
 function App() {
   return (
@@ -50,6 +51,11 @@ function App() {
           path="/accountverification"
           element={<AccountVerificationPage />}
         />
+
+        {/* TODO Authenticate */}
+        <Route path="/saveme/*" element={<TrackProductRedirect />} />
+
+
       </Routes>
     </Router>
   );

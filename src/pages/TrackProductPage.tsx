@@ -15,6 +15,8 @@ interface Product {
   customerRatingCount: number;
   additionalImages: string[];
   url: string;
+  _id: string;
+
 }
 
 export default function TrackProductPage() {
@@ -54,6 +56,28 @@ export default function TrackProductPage() {
       );
       const resProduct = response.data.product;
       if (resProduct) {
+        // Check if the product already exists in the list
+        const productExists = products.some(product => product.url === resProduct.url);
+        if (!productExists) {
+          setProducts([...products, resProduct]);
+        } else {
+          console.warn("Product already exists in the list.");
+        }
+      }
+    } catch (error) {
+      console.error("Error tracking product:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  
+
+    try {
+      const response = await axios.get(
+        `${backendUrl}api/crawl/BB?url=${productUrl}`,
+        { withCredentials: true }
+      );
+      const resProduct = response.data.product;
+      if (resProduct) {
         setProducts([...products, resProduct]);
       }
     } catch (error) {
@@ -62,6 +86,19 @@ export default function TrackProductPage() {
       setIsLoading(false);
     }
   };
+
+  const handleDeleteProduct = async (productId: string) => {
+    try {
+      await axios.delete(`${backendUrl}api/user/deleteTrackedProduct`, {
+        data: { userId: '67d196742e8a0ebe7cbcb41c', productId }, // Replace with actual userId
+        withCredentials: true,
+      });
+      setProducts(products.filter(product => product._id !== productId));
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-#f4c538">
@@ -92,6 +129,7 @@ export default function TrackProductPage() {
           <ul className="w-full flex flex-wrap gap-4 justify-center ">
             {products.map((product, index) => (
               <TrackProductsCard
+                key={product.url}
                 index={index}
                 name={product.name}
                 brandName={product.brandName}
@@ -103,6 +141,8 @@ export default function TrackProductPage() {
                 customerRating={product.customerRating}
                 customerRatingCount={product.customerRatingCount}
                 url={product.url}
+                onDelete={() => handleDeleteProduct(product._id)} // Pass delete handler
+
               />
             ))}
           </ul>
