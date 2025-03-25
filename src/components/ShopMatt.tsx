@@ -30,25 +30,31 @@ function ShopMatt() {
           `http://localhost:3000/api/scrape/scrape?keyword=${keyword}`,
         );
         const data = await response.json();
-        
+
         const combinedProducts = [
-          ...(data.bestBuy ? data.bestBuy.map((product: Product, index: number) => ({
-            ...product,
-            id: `bestBuy-${index}`,
-            source: 'BestBuy',
-          })) : []),
-          ...(data.giantTiger ? data.giantTiger.map((product: Product, index: number) => ({
-            ...product,
-            id: `giantTiger-${index}`,
-            source: 'GiantTiger',
-          })) : []),
-          ...(data.cadTire ? data.cadTire.map((product: Product, index: number) => ({
-            ...product,
-            id: `cadTire-${index}`,
-            source: 'CadTire',
-          })) : []),
+          ...(data.bestBuy
+            ? data.bestBuy.map((product: Product, index: number) => ({
+                ...product,
+                id: `bestBuy-${index}`,
+                source: "BestBuy",
+              }))
+            : []),
+          ...(data.giantTiger
+            ? data.giantTiger.map((product: Product, index: number) => ({
+                ...product,
+                id: `giantTiger-${index}`,
+                source: "GiantTiger",
+              }))
+            : []),
+          ...(data.cadTire
+            ? data.cadTire.map((product: Product, index: number) => ({
+                ...product,
+                id: `cadTire-${index}`,
+                source: "CadTire",
+              }))
+            : []),
         ];
-        
+
         setProducts(combinedProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -82,4 +88,3 @@ function ShopMatt() {
 }
 
 export default ShopMatt;
-

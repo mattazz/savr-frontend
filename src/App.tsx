@@ -54,8 +54,6 @@ function App() {
 
         {/* TODO Authenticate */}
         <Route path="/saveme/*" element={<TrackProductRedirect />} />
-
-
       </Routes>
     </Router>
   );

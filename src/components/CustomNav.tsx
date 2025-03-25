@@ -48,7 +48,9 @@ function CustomNav() {
                 <Link to="/track" className="text-white hover:text-gray-400">
                   Saved
                 </Link>
-              ):""}
+              ) : (
+                ""
+              )}
             </li>
           </ul>
         </div>

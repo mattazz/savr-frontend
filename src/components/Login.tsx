@@ -99,6 +99,7 @@ function Login() {
         {/* Google Login Button */}
         <button
           onClick={handleLoginClick}
+          type="button"
           className="flex items-center justify-center gap-2 bg-white border border-gray-400 shadow-md rounded-sm p-2 hover:bg-gray-100 transition"
         >
           <img src="/googleicon.jpg" alt="Google Logo" className="w-5 h-5" />
