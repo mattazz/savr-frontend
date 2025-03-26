@@ -3,7 +3,6 @@ import axios from "axios";
 import { backendUrl } from "../config/constants";
 import TrackProductsCard from "../components/TrackProductCard";
 
-
 interface Product {
   name: string;
   brandName: string;
@@ -16,7 +15,6 @@ interface Product {
   additionalImages: string[];
   url: string;
   _id: string;
-
 }
 
 export default function TrackProductPage() {
@@ -29,7 +27,7 @@ export default function TrackProductPage() {
       try {
         const response = await axios.get(
           `${backendUrl}api/user/getSavedProducts`,
-          { withCredentials: true }
+          { withCredentials: true },
         );
         const userSavedProducts: Product[] = response.data.products;
         // console.log("Fetched products:", response.data);
@@ -52,12 +50,14 @@ export default function TrackProductPage() {
     try {
       const response = await axios.get(
         `${backendUrl}api/crawl/BB?url=${productUrl}`,
-        { withCredentials: true }
+        { withCredentials: true },
       );
       const resProduct = response.data.product;
       if (resProduct) {
         // Check if the product already exists in the list
-        const productExists = products.some(product => product.url === resProduct.url);
+        const productExists = products.some(
+          (product) => product.url === resProduct.url,
+        );
         if (!productExists) {
           setProducts([...products, resProduct]);
         } else {
@@ -69,12 +69,11 @@ export default function TrackProductPage() {
     } finally {
       setIsLoading(false);
     }
-  
 
     try {
       const response = await axios.get(
         `${backendUrl}api/crawl/BB?url=${productUrl}`,
-        { withCredentials: true }
+        { withCredentials: true },
       );
       const resProduct = response.data.product;
       if (resProduct) {
@@ -90,15 +89,14 @@ export default function TrackProductPage() {
   const handleDeleteProduct = async (productId: string) => {
     try {
       await axios.delete(`${backendUrl}api/user/deleteTrackedProduct`, {
-        data: { userId: '67d196742e8a0ebe7cbcb41c', productId }, // Replace with actual userId
+        data: { userId: "67d196742e8a0ebe7cbcb41c", productId }, // Replace with actual userId
         withCredentials: true,
       });
-      setProducts(products.filter(product => product._id !== productId));
+      setProducts(products.filter((product) => product._id !== productId));
     } catch (error) {
       console.error("Error deleting product:", error);
     }
   };
-
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-#f4c538">
@@ -125,7 +123,9 @@ export default function TrackProductPage() {
       </div>
       {products.length > 0 && (
         <div className="w-full max-w-7xl mx-auto">
-          <h3 className="text-xl font-bold text-gray-800 mb-4 text-center mt-4"  >Saved Products</h3>
+          <h3 className="text-xl font-bold text-gray-800 mb-4 text-center mt-4">
+            Saved Products
+          </h3>
           <ul className="w-full flex flex-wrap gap-4 justify-center ">
             {products.map((product, index) => (
               <TrackProductsCard
@@ -142,13 +142,11 @@ export default function TrackProductPage() {
                 customerRatingCount={product.customerRatingCount}
                 url={product.url}
                 onDelete={() => handleDeleteProduct(product._id)} // Pass delete handler
-
               />
             ))}
           </ul>
         </div>
       )}
-
     </div>
   );
 }
