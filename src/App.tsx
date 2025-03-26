@@ -52,7 +52,6 @@ function App() {
           element={<AccountVerificationPage />}
         />
 
-        {/* TODO Authenticate */}
         <Route path="/saveme/*" element={<TrackProductRedirect />} />
       </Routes>
     </Router>
