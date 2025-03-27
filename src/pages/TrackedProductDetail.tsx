@@ -152,7 +152,7 @@ export default function ProductDetailsPage() {
                   ></path>
                 </svg>
                 <a
-                  href="/products"
+                  href="/track"
                   className="ml-1 text-blue-600 hover:text-blue-800"
                 >
                   Products
