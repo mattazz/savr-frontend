@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useUser } from "../utils/hooks";
 function CustomNav() {
-  const { user } = useUser();
+  const { user, logout } = useUser();
 
   return (
     <>
@@ -23,11 +23,6 @@ function CustomNav() {
           </div>
           <ul className="flex gap-5">
             <li>
-              <Link to="/aboutUs" className="text-white hover:text-gray-400">
-                About Us
-              </Link>
-            </li>
-            <li>
               <Link to="/" className="text-white hover:text-gray-400">
                 Home
               </Link>
@@ -45,16 +40,26 @@ function CustomNav() {
             </li>
             <li>
               {user ? (
-                <Link to="/track" className="text-white hover:text-gray-400">
-                  Saved
-                </Link>
+                <div className="flex gap-4">
+                  <Link to="/track" className="text-white hover:text-gray-400">
+                    Saved
+                  </Link>
+
+                  <li>
+                    <button onClick={() => logout()}
+                      className="text-white hover:text-gray-400"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </div>
               ) : (
                 ""
               )}
             </li>
           </ul>
         </div>
-      </nav>
+      </nav >
     </>
   );
 }

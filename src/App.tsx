@@ -7,6 +7,7 @@ import { ProfilePage } from "./pages/ProfilePage";
 import AuthenticatedRoute from "./utils/authchecker";
 import TrackProductPage from "./pages/TrackProductPage";
 import TrackProductRedirect from "./pages/TrackProductRedirect";
+import ProductDetailsPage from "./pages/TrackedProductDetail";
 
 function App() {
   return (
@@ -50,6 +51,10 @@ function App() {
         <Route
           path="/accountverification"
           element={<AccountVerificationPage />}
+        />
+        <Route
+          path="/productdetail"
+          element={<ProductDetailsPage />}
         />
 
         <Route path="/saveme/*" element={<TrackProductRedirect />} />

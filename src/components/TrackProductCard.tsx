@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface TrackProductCardProps {
   index: number;
   name: string;
@@ -10,6 +12,7 @@ interface TrackProductCardProps {
   customerRating: number;
   customerRatingCount: number;
   url: string;
+  productId: string
   onDelete: () => void;
 }
 
@@ -26,6 +29,7 @@ export default function TrackProductsCard({
   url,
   customerRatingCount,
   onDelete,
+  productId
 }: TrackProductCardProps) {
   const handleDelete = () => {
     // TODO  -> I think need the object ID and the user ID in order to delete the product from MongoDB
@@ -63,9 +67,9 @@ export default function TrackProductsCard({
         Customer Rating: ⭐ {customerRating} ({customerRatingCount} reviews)
       </p>
       <div className="flex flex-col gap-2 w-full">
-        <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-all">
+        <Link to={`/productdetail?productId=${productId}`} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-all">
           View Chart History
-        </button>
+        </Link>
         <button
           onClick={handleDelete}
           className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-all"

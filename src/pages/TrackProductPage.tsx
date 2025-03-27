@@ -130,6 +130,7 @@ export default function TrackProductPage() {
           <ul className="w-full flex flex-wrap gap-4 justify-center ">
             {products.map((product, index) => (
               <TrackProductsCard
+                productId={product._id}
                 key={product.url}
                 index={index}
                 name={product.name}
