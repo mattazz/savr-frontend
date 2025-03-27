@@ -10,30 +10,49 @@ interface Product {
 function ProductCardMatt({ product }: { product: Product }) {
   return (
     <div
-      className={`rounded-lg w-80 bg-white flex flex-col gap-4 items-center shadow-lg p-6 duration-700 hover:scale-105 
+      className={`rounded-xl w-full max-w-sm bg-white flex flex-col gap-4 items-center shadow-md hover:shadow-xl p-6 duration-300 transition-all transform hover:-translate-y-1
         ${product.image && product.image.includes("noimage") ? "hidden" : ""}`}
     >
-      <img
-        className="w-40 h-40 object-cover rounded-md"
-        src={product.image}
-        alt={product.title}
-      />
-      <h3 className="font-bold text-xl text-gray-800">{product.title}</h3>
-      {product.salePrice !== product.price && product.source == "BestBuy" ? (
-        <p className="text-lg">
-          <span className="text-red-500 font-bold line-through mr-3">
-            ${product.price}
-          </span>
-          <span className="text-green-500 font-bold">${product.salePrice}</span>
-        </p>
-      ) : (
-        <p className="text-lg font-bold text-gray-800">${product.price}</p>
-      )}
-      <a href={product.url} className="mt-4">
-        <p className="bg-black text-white p-2 rounded-md hover:bg-gray-800">
-          {product.source}
-        </p>
-      </a>
+      <div className="relative w-full aspect-square overflow-hidden rounded-lg">
+        <img
+          className="w-full h-full object-cover transition duration-300 hover:scale-105"
+          src={product.image}
+          alt={product.title}
+        />
+      </div>
+
+      <div className="w-full space-y-3">
+        <h3 className="font-semibold text-lg text-gray-800 line-clamp-2">
+          {product.title}
+        </h3>
+
+        <div className="flex items-center justify-between">
+          {product.salePrice !== product.price &&
+          product.source == "BestBuy" ? (
+            <div className="flex items-center gap-2">
+              <span className="text-gray-400 text-sm line-through">
+                ${product.price}
+              </span>
+              <span className="text-teal-600 font-semibold text-lg">
+                ${product.salePrice}
+              </span>
+            </div>
+          ) : (
+            <span className="text-gray-800 font-semibold text-lg">
+              ${product.price}
+            </span>
+          )}
+
+          <a
+            href={product.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition duration-200"
+          >
+            {product.source}
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

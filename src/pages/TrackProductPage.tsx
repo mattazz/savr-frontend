@@ -27,7 +27,7 @@ export default function TrackProductPage() {
       try {
         const response = await axios.get(
           `${backendUrl}api/user/getSavedProducts`,
-          { withCredentials: true },
+          { withCredentials: true }
         );
         const userSavedProducts: Product[] = response.data.products;
         // console.log("Fetched products:", response.data);
@@ -50,14 +50,14 @@ export default function TrackProductPage() {
     try {
       const response = await axios.get(
         `${backendUrl}api/crawl/BB?url=${productUrl}`,
-        { withCredentials: true },
+        { withCredentials: true }
       );
 
       const resProduct = response.data.product;
       if (resProduct) {
         // Check if the product already exists in the list
         const productExists = products.some(
-          (product) => product.url === resProduct.url,
+          (product) => product.url === resProduct.url
         );
         if (!productExists) {
           setProducts([...products, resProduct]);
@@ -74,7 +74,7 @@ export default function TrackProductPage() {
     try {
       const response = await axios.get(
         `${backendUrl}api/crawl/BB?url=${productUrl}`,
-        { withCredentials: true },
+        { withCredentials: true }
       );
       const resProduct = response.data.product;
       if (resProduct) {
@@ -100,15 +100,15 @@ export default function TrackProductPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-#f4c538">
-      <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md my-4">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-teal-50">
+      <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md my-4">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
           Track a Product
         </h2>
 
         <input
           type="text"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 mb-4 text-gray-700 placeholder-gray-400"
           placeholder="Enter product URL (e.g., Walmart, Amazon)"
           value={productUrl}
           onChange={(e) => setProductUrl(e.target.value)}
@@ -116,7 +116,7 @@ export default function TrackProductPage() {
 
         <button
           onClick={handleTrackProduct}
-          className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition font-medium disabled:bg-gray-400"
+          className="w-full bg-teal-600 text-white py-3 rounded-lg hover:bg-teal-700 transition font-medium disabled:bg-gray-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
           disabled={isLoading}
         >
           {isLoading ? "Tracking..." : "Track Product"}
@@ -124,10 +124,10 @@ export default function TrackProductPage() {
       </div>
       {products.length > 0 && (
         <div className="w-full max-w-7xl mx-auto">
-          <h3 className="text-xl font-bold text-gray-800 mb-4 text-center mt-4">
+          <h3 className="text-xl font-bold text-gray-900 mb-4 text-center mt-4">
             Saved Products
           </h3>
-          <ul className="w-full flex flex-wrap gap-4 justify-center ">
+          <ul className="w-full flex flex-wrap gap-4 justify-center">
             {products.map((product, index) => (
               <TrackProductsCard
                 productId={product._id}
@@ -143,7 +143,7 @@ export default function TrackProductPage() {
                 customerRating={product.customerRating}
                 customerRatingCount={product.customerRatingCount}
                 url={product.url}
-                onDelete={() => handleDeleteProduct(product._id)} // Pass delete handler
+                onDelete={() => handleDeleteProduct(product._id)}
               />
             ))}
           </ul>

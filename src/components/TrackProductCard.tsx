@@ -12,7 +12,7 @@ interface TrackProductCardProps {
   customerRating: number;
   customerRatingCount: number;
   url: string;
-  productId: string
+  productId: string;
   onDelete: () => void;
 }
 
@@ -29,7 +29,7 @@ export default function TrackProductsCard({
   url,
   customerRatingCount,
   onDelete,
-  productId
+  productId,
 }: TrackProductCardProps) {
   const handleDelete = () => {
     // TODO  -> I think need the object ID and the user ID in order to delete the product from MongoDB
@@ -39,49 +39,85 @@ export default function TrackProductsCard({
   return (
     <li
       key={index}
-      className="p-6 border bg-white rounded-3xl w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col items-center shadow-lg hover:shadow-2xl transition-shadow duration-300"
+      className="p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
     >
-      <h4 className="text-xl font-bold text-center mb-2">{name}</h4>
-      <p className="text-gray-500 mb-2">Brand: {brandName}</p>
-      <img
-        src={additionalImages[0]}
-        alt=""
-        className="w-40 h-40 object-cover rounded-lg mb-4"
-      />
-      {isOnSale ? (
-        <p className="mb-2">
-          <span className="text-red-500 line-through mr-2">
-            ${regularPrice}
-          </span>
-          <span className="text-black font-bold">${priceWithoutEhf}</span>
-        </p>
-      ) : (
-        <p className="text-black font-bold mb-2">${regularPrice}</p>
-      )}
-      {isOnSale && (
-        <p className="text-sm font-semibold text-green-500 mb-2">
-          On sale and saving ${saving}
-        </p>
-      )}
-      <p className="text-sm text-gray-700 mb-4">
-        Customer Rating: ⭐ {customerRating} ({customerRatingCount} reviews)
-      </p>
-      <div className="flex flex-col gap-2 w-full">
-        <Link to={`/productdetail?productId=${productId}`} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-all">
-          View Chart History
-        </Link>
-        <button
-          onClick={handleDelete}
-          className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-all"
-        >
-          Delete Product
-        </button>
-        <a
-          href={url}
-          className="w-full bg-green-500 text-white py-2 rounded-lg text-center hover:bg-green-600 transition-all"
-        >
-          Buy Now
-        </a>
+      <div className="space-y-4">
+        {/* Product Image */}
+        <div className="relative w-full aspect-square overflow-hidden rounded-lg">
+          <img
+            src={additionalImages[0]}
+            alt={name}
+            className="w-full h-full object-cover transition duration-300 hover:scale-105"
+          />
+        </div>
+
+        {/* Product Info */}
+        <div className="space-y-2">
+          <h4 className="text-lg font-semibold text-gray-800 line-clamp-2">
+            {name}
+          </h4>
+          <p className="text-sm text-gray-600">Brand: {brandName}</p>
+
+          {/* Price Section */}
+          <div className="flex items-center gap-2">
+            {isOnSale ? (
+              <>
+                <span className="text-gray-400 text-sm line-through">
+                  ${regularPrice}
+                </span>
+                <span className="text-teal-600 font-semibold text-lg">
+                  ${priceWithoutEhf}
+                </span>
+              </>
+            ) : (
+              <span className="text-gray-800 font-semibold text-lg">
+                ${regularPrice}
+              </span>
+            )}
+          </div>
+
+          {/* Sale Badge */}
+          {isOnSale && (
+            <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">
+              Save ${saving}
+            </div>
+          )}
+
+          {/* Rating */}
+          <div className="flex items-center gap-1 text-sm text-gray-600">
+            <span className="text-yellow-400">⭐</span>
+            <span>{customerRating}</span>
+            <span className="text-gray-400">
+              ({customerRatingCount} reviews)
+            </span>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="space-y-2 pt-2">
+          <Link
+            to={`/productdetail?productId=${productId}`}
+            className="w-full flex items-center justify-center px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition duration-200"
+          >
+            View Chart History
+          </Link>
+
+          <button
+            onClick={handleDelete}
+            className="w-full flex items-center justify-center px-4 py-2 bg-red-50 text-red-600 text-sm font-medium rounded-lg hover:bg-red-100 transition duration-200"
+          >
+            Remove Product
+          </button>
+
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center justify-center px-4 py-2 bg-white border border-teal-600 text-teal-600 text-sm font-medium rounded-lg hover:bg-teal-50 transition duration-200"
+          >
+            Buy Now
+          </a>
+        </div>
       </div>
     </li>
   );
