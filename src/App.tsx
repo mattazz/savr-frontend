@@ -8,6 +8,7 @@ import AuthenticatedRoute from "./utils/authchecker";
 import TrackProductPage from "./pages/TrackProductPage";
 import TrackProductRedirect from "./pages/TrackProductRedirect";
 import ProductDetailsPage from "./pages/TrackedProductDetail";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -52,12 +53,11 @@ function App() {
           path="/accountverification"
           element={<AccountVerificationPage />}
         />
-        <Route
-          path="/productdetail"
-          element={<ProductDetailsPage />}
-        />
-
+        <Route path="/productdetail" element={<ProductDetailsPage />} />
         <Route path="/saveme/*" element={<TrackProductRedirect />} />
+
+        {/* 404 Route - This should be the last route */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
