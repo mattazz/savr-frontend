@@ -21,8 +21,21 @@ export default function TrackProductPage() {
   const [productUrl, setProductUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    async function checkAuthentication() {
+      try {
+        const response = await axios.get(`${backendUrl}api/auth/check`, {
+          withCredentials: true,
+        });
+        setIsAuthenticated(response.data.isAuthenticated);
+      } catch (error) {
+        console.error("Error checking authentication:", error);
+        setIsAuthenticated(false);
+      }
+    }
+
     async function loadData() {
       try {
         const response = await axios.get(
@@ -30,7 +43,6 @@ export default function TrackProductPage() {
           { withCredentials: true }
         );
         const userSavedProducts: Product[] = response.data.products;
-        // console.log("Fetched products:", response.data);
 
         if (userSavedProducts.length > 0) {
           setProducts([...userSavedProducts]);
@@ -39,8 +51,12 @@ export default function TrackProductPage() {
         console.log(e);
       }
     }
-    loadData();
-  }, []);
+
+    checkAuthentication();
+    if (isAuthenticated) {
+      loadData();
+    }
+  }, [isAuthenticated]);
 
   const handleTrackProduct = async () => {
     if (!productUrl.trim()) return;
@@ -55,16 +71,13 @@ export default function TrackProductPage() {
 
       const resProduct = response.data.product;
       if (resProduct) {
-        // Check if the product already exists in the list
         const productExists = products.some(
           (product) => product.url === resProduct.url
         );
         if (!productExists) {
-          // setProducts([...products, resProduct]);
           setProducts((prevProducts) => [...prevProducts, resProduct]);
         } else {
           console.warn("Product already exists in the list.");
-          setProducts((prevProducts) => [...prevProducts, resProduct]);
         }
       }
     } catch (error) {
@@ -78,7 +91,7 @@ export default function TrackProductPage() {
   const handleDeleteProduct = async (productId: string) => {
     try {
       await axios.delete(`${backendUrl}api/user/deleteTrackedProduct`, {
-        data: { userId: "67d196742e8a0ebe7cbcb41c", productId }, // Replace with actual userId
+        data: { userId: "67d196742e8a0ebe7cbcb41c", productId },
         withCredentials: true,
       });
       setProducts(products.filter((product) => product._id !== productId));
@@ -87,9 +100,20 @@ export default function TrackProductPage() {
     }
   };
 
-  console.log(products);
-  
-
+  if (!isAuthenticated) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-teal-50">
+        <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md my-4">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+            Authentication Required
+          </h2>
+          <p className="text-gray-700 text-center">
+            Please <a href="/login">log in</a> to access this page.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-teal-50">

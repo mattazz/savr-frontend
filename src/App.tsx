@@ -1,5 +1,5 @@
 import "./App.css";
-import { CustomNav, HomeMatt, ShopMatt, Login, Register } from "./components";
+import { CustomNav, ShopMatt, Login, Register } from "./components";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AccountVerificationPage from "./pages/AccountVerification";
 import RedirectIfLoggedIn from "./utils/redirector";
