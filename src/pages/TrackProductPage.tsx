@@ -60,25 +60,16 @@ export default function TrackProductPage() {
           (product) => product.url === resProduct.url
         );
         if (!productExists) {
-          setProducts([...products, resProduct]);
-        } else {
+          // setProducts([...products, resProduct]);
+          setProducts((prevProducts) =>
+            prevProducts.map((product) =>
+              product.url === resProduct.url ? resProduct : product
+            )
+          );
+          } else {
           console.warn("Product already exists in the list.");
+          setProducts((prevProducts) => [...prevProducts, resProduct]);
         }
-      }
-    } catch (error) {
-      console.error("Error tracking product:", error);
-    } finally {
-      setIsLoading(false);
-    }
-
-    try {
-      const response = await axios.get(
-        `${backendUrl}api/crawl/BB?url=${productUrl}`,
-        { withCredentials: true }
-      );
-      const resProduct = response.data.product;
-      if (resProduct) {
-        setProducts([...products, resProduct]);
       }
     } catch (error) {
       console.error("Error tracking product:", error);
@@ -98,6 +89,10 @@ export default function TrackProductPage() {
       console.error("Error deleting product:", error);
     }
   };
+
+  console.log(products);
+  
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-teal-50">
