@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useUser } from "../utils/hooks";
 
 function CustomNav() {
   const { user, logout } = useUser();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <>
@@ -43,48 +45,114 @@ function CustomNav() {
               </Link>
             </div>
 
-            <div className="flex items-center">
-              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                <Link
-                  to="/"
-                  className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
+            {/* Mobile menu button */}
+            <div className="flex items-center sm:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-700 hover:text-teal-600 focus:outline-none"
+              >
+                <svg
+                  className="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  Home
-                </Link>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                  />
+                </svg>
+              </button>
+            </div>
 
-                {user ? (
-                  <>
-                    <Link
-                      to="/profile"
-                      className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
-                    >
-                      Profile
-                    </Link>
-                    <Link
-                      to="/track"
-                      className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
-                    >
-                      Saved
-                    </Link>
-                    <button
-                      onClick={() => logout()}
-                      className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
-                    >
-                      Logout
-                    </button>
-                  </>
-                ) : (
+            {/* Desktop menu */}
+            <div className="hidden sm:flex sm:items-center sm:space-x-8">
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
+              >
+                Home
+              </Link>
+
+              {user ? (
+                <>
                   <Link
-                    to="/login"
+                    to="/profile"
                     className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
                   >
-                    Login
+                    Profile
                   </Link>
-                )}
-              </div>
+                  <Link
+                    to="/track"
+                    className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
+                  >
+                    Saved
+                  </Link>
+                  <button
+                    onClick={() => logout()}
+                    className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
+                >
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         </div>
+
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <div className="sm:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <Link
+                to="/"
+                className="block text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-base font-medium transition duration-200"
+              >
+                Home
+              </Link>
+
+              {user ? (
+                <>
+                  <Link
+                    to="/profile"
+                    className="block text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-base font-medium transition duration-200"
+                  >
+                    Profile
+                  </Link>
+                  <Link
+                    to="/track"
+                    className="block text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-base font-medium transition duration-200"
+                  >
+                    Saved
+                  </Link>
+                  <button
+                    onClick={() => logout()}
+                    className="block text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-base font-medium transition duration-200"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  className="block text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-base font-medium transition duration-200"
+                >
+                  Login
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
     </>
   );
