@@ -14,7 +14,11 @@ function App() {
     <Router>
       <CustomNav />
       <Routes>
-        <Route path="/" element={<HomeMatt />} />
+        <Route path="/" element={
+            <AuthenticatedRoute>
+              <TrackProductPage />
+            </AuthenticatedRoute>
+          } />
         <Route path="/shop" element={<ShopMatt />} />
         <Route
           path="/track"
