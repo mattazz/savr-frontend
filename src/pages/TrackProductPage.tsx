@@ -61,12 +61,8 @@ export default function TrackProductPage() {
         );
         if (!productExists) {
           // setProducts([...products, resProduct]);
-          setProducts((prevProducts) =>
-            prevProducts.map((product) =>
-              product.url === resProduct.url ? resProduct : product
-            )
-          );
-          } else {
+          setProducts((prevProducts) => [...prevProducts, resProduct]);
+        } else {
           console.warn("Product already exists in the list.");
           setProducts((prevProducts) => [...prevProducts, resProduct]);
         }
@@ -75,6 +71,7 @@ export default function TrackProductPage() {
       console.error("Error tracking product:", error);
     } finally {
       setIsLoading(false);
+      setProductUrl("");
     }
   };
 
