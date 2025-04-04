@@ -1,5 +1,5 @@
 import "./App.css";
-import { CustomNav, ShopMatt, Login, Register } from "./components";
+import { CustomNav, ShopMatt, Login, Register, HomeMatt } from "./components";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AccountVerificationPage from "./pages/AccountVerification";
 import RedirectIfLoggedIn from "./utils/redirector";
@@ -15,13 +15,16 @@ function App() {
       <CustomNav />
       <Routes>
         <Route path="/" element={
-              <Login />
+              <HomeMatt />
           } />
         <Route path="/shop" element={<ShopMatt />} />
         <Route
           path="/track"
           element={
+            <AuthenticatedRoute>
               <TrackProductPage />
+              </AuthenticatedRoute>
+
           }
         />
         <Route
