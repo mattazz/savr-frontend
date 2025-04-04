@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, } from "react";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
 import TrackProductsCard from "../components/TrackProductCard";
 import { useUser } from "../utils/hooks";
 import { useNavigate } from "react-router-dom";
+
 
 interface Product {
 	name: string;
@@ -20,9 +21,9 @@ interface Product {
 }
 
 export default function TrackProductPage() {
-	const [productUrl, setProductUrl] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
-	const [products, setProducts] = useState<Product[]>([]);
+  const [productUrl, setProductUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
 
 	const { user, loading } = useUser();
 
@@ -82,17 +83,17 @@ export default function TrackProductPage() {
 		}
 	};
 
-	const handleDeleteProduct = async (productId: string) => {
-		try {
-			await axios.delete(`${backendUrl}api/user/deleteTrackedProduct`, {
-				data: { userId: "67d196742e8a0ebe7cbcb41c", productId },
-				withCredentials: true,
-			});
-			setProducts(products.filter((product) => product._id !== productId));
-		} catch (error) {
-			console.error("Error deleting product:", error);
-		}
-	};
+  const handleDeleteProduct = async (productId: string) => {
+    try {
+      await axios.delete(`${backendUrl}api/user/deleteTrackedProduct`, {
+        data: { userId: user!.id, productId },
+        withCredentials: true,
+      });
+      setProducts(products.filter((product) => product._id !== productId));
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
 
 	if (loading) {
 		return (

@@ -3,6 +3,8 @@ export interface User {
   fullName: string;
   email: string;
   isVerified: boolean;
+  id: string;
+  role: string;
 }
 export interface UserContextType {
   loading: boolean;
