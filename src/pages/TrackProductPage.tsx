@@ -5,7 +5,6 @@ import TrackProductsCard from "../components/TrackProductCard";
 import { useUser } from "../utils/hooks";
 import { useNavigate } from "react-router-dom";
 
-
 interface Product {
 	name: string;
 	brandName: string;
@@ -21,9 +20,9 @@ interface Product {
 }
 
 export default function TrackProductPage() {
-  const [productUrl, setProductUrl] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
+	const [productUrl, setProductUrl] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+	const [products, setProducts] = useState<Product[]>([]);
 
 	const { user, loading } = useUser();
 
