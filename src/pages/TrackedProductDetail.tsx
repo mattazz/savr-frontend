@@ -152,7 +152,7 @@ export default function ProductDetailsPage() {
                   ></path>
                 </svg>
                 <a
-                  href="/track"
+                  href="/"
                   className="ml-1 text-blue-600 hover:text-blue-800"
                 >
                   Products
@@ -273,7 +273,7 @@ export default function ProductDetailsPage() {
                   href={product.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg inline-block text-center w-full"
+                  className="bg-teal-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg inline-block text-center w-full"
                 >
                   View on BestBuy
                 </a>

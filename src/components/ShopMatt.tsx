@@ -31,7 +31,7 @@ function ShopMatt() {
       setFetching(true)
       try {
         const response = await fetch(
-          `http://localhost:3000/api/scrape/scrape?keyword=${keyword}`
+          `${backendUrl}api/scrape/scrape?keyword=${keyword}`
         );
         const data = await response.json();
 
