@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SearchBar from "./Searchbar";
 import { LoaderIcon } from "lucide-react";
+import { backendUrl } from "../config/constants";
 
 interface Product {
   id: number;
