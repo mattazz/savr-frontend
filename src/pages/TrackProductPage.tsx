@@ -26,7 +26,7 @@ export default function TrackProductPage() {
   useEffect(() => {
     async function checkAuthentication() {
       try {
-        const response = await axios.get(`${backendUrl}api/auth/check`, {
+        const response = await axios.get(`${backendUrl}api/user/check-session`, {
           withCredentials: true,
         });
         setIsAuthenticated(response.data.isAuthenticated);
