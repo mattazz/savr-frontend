@@ -16,7 +16,7 @@ Many people want to buy products but prefer to wait for a price drop. Money has 
 ## Our Solution – The Price-Matching App
 
 **To solve this, our app will:**
-
+#
 - Compare prices across multiple retailers and give them the best value.
 - Save items users are interested in.
 - Notify them when the price drops.
