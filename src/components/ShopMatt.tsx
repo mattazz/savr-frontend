@@ -22,49 +22,48 @@ function useQuery() {
 
 function ShopMatt() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [fetching, setFetching] = useState(false)
+  const [fetching, setFetching] = useState(false);
   const query = useQuery();
   const keyword = query.get("keyword") || "";
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setFetching(true)
+      setFetching(true);
       try {
         const response = await fetch(
-          `${backendUrl}api/scrape/scrape?keyword=${keyword}`
+          `${backendUrl}api/scrape/scrape?keyword=${keyword}`,
         );
         const data = await response.json();
 
         const combinedProducts = [
           ...(data.bestBuy
             ? data.bestBuy.map((product: Product, index: number) => ({
-              ...product,
-              id: `bestBuy-${index}`,
-              source: "BestBuy",
-            }))
+                ...product,
+                id: `bestBuy-${index}`,
+                source: "BestBuy",
+              }))
             : []),
           ...(data.giantTiger
             ? data.giantTiger.map((product: Product, index: number) => ({
-              ...product,
-              id: `giantTiger-${index}`,
-              source: "GiantTiger",
-            }))
+                ...product,
+                id: `giantTiger-${index}`,
+                source: "GiantTiger",
+              }))
             : []),
           ...(data.cadTire
             ? data.cadTire.map((product: Product, index: number) => ({
-              ...product,
-              id: `cadTire-${index}`,
-              source: "CadTire",
-            }))
+                ...product,
+                id: `cadTire-${index}`,
+                source: "CadTire",
+              }))
             : []),
         ];
 
         setProducts(combinedProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
-      }
-      finally {
-        setFetching(false)
+      } finally {
+        setFetching(false);
       }
     };
 
@@ -86,31 +85,31 @@ function ShopMatt() {
             <SearchBar />
           </div>
         </div>
-        {
-          fetching ?
-            <div className="space-y-8 flex items-center justify-center">
-              <LoaderIcon className="animate-spin" size={50} />
-            </div> :
+        {fetching ? (
+          <div className="space-y-8 flex items-center justify-center">
+            <LoaderIcon className="animate-spin" size={50} />
+          </div>
+        ) : (
+          <div className="space-y-8">
+            <h2 className="text-2xl font-semibold text-gray-900">
+              Search Results
+            </h2>
 
-            <div className="space-y-8">
-              <h2 className="text-2xl font-semibold text-gray-900">
-                Search Results
-              </h2>
-
-              {products.length === 0 ? (
-                <div className="text-center py-12">
-                  <p className="text-gray-600">
-                    No products found. Try a different search term.
-                  </p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {products.map((product) => (
-                    <ProductCardMatt key={product.id} product={product} />
-                  ))}
-                </div>
-              )}
-            </div>}
+            {products.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-600">
+                  No products found. Try a different search term.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {products.map((product) => (
+                  <ProductCardMatt key={product.id} product={product} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

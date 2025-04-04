@@ -58,20 +58,20 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export default function ProductDetailsPage() {
   const [data] = useSearchParams();
-  const productId = data.get('productId')
+  const productId = data.get("productId");
   const [product, setProduct] = useState<ProductDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    if (!productId) return
+    if (!productId) return;
     async function fetchProductDetails() {
       try {
         const response = await axios.get(
           `${backendUrl}api/products/history?productId=${productId}`,
-          { withCredentials: true }
+          { withCredentials: true },
         );
-        console.log(response)
+        console.log(response);
         setProduct(response.data.product);
       } catch (error) {
         console.error("Error fetching product details:", error);
@@ -151,10 +151,7 @@ export default function ProductDetailsPage() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <a
-                  href="/"
-                  className="ml-1 text-blue-600 hover:text-blue-800"
-                >
+                <a href="/" className="ml-1 text-blue-600 hover:text-blue-800">
                   Products
                 </a>
               </div>
@@ -195,10 +192,11 @@ export default function ProductDetailsPage() {
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`h-24 bg-gray-100 rounded-md overflow-hidden border-2 ${currentImageIndex === index
-                      ? "border-blue-500"
-                      : "border-transparent"
-                      }`}
+                    className={`h-24 bg-gray-100 rounded-md overflow-hidden border-2 ${
+                      currentImageIndex === index
+                        ? "border-blue-500"
+                        : "border-transparent"
+                    }`}
                   >
                     <img
                       src={image}
@@ -225,10 +223,11 @@ export default function ProductDetailsPage() {
                     {[...Array(5)].map((_, i) => (
                       <svg
                         key={i}
-                        className={`w-5 h-5 ${i < Math.floor(product.customerRating)
-                          ? "text-yellow-400"
-                          : "text-gray-300"
-                          }`}
+                        className={`w-5 h-5 ${
+                          i < Math.floor(product.customerRating)
+                            ? "text-yellow-400"
+                            : "text-gray-300"
+                        }`}
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -312,7 +311,8 @@ export default function ProductDetailsPage() {
                   />
                   <YAxis
                     domain={[
-                      (dataMin: number) => Math.max(0, Math.floor(dataMin * 0.9)),
+                      (dataMin: number) =>
+                        Math.max(0, Math.floor(dataMin * 0.9)),
                       (dataMax: number) => Math.ceil(dataMax * 1.1),
                     ]}
                     tickFormatter={(value) => `$${value.toFixed(2)}`}
@@ -347,7 +347,7 @@ export default function ProductDetailsPage() {
                   {product.priceDateHistory
                     .sort(
                       (a, b) =>
-                        new Date(b.Date).getTime() - new Date(a.Date).getTime()
+                        new Date(b.Date).getTime() - new Date(a.Date).getTime(),
                     )
                     .map((entry, index) => (
                       <tr key={index}>

@@ -36,7 +36,6 @@ export default function TrackProductsCard({
     onDelete();
   };
 
-
   return (
     <li
       key={index}
