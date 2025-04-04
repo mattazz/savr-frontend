@@ -41,7 +41,7 @@ function Register() {
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
-        }
+        },
       );
 
       setUser(response.data.user);
@@ -51,7 +51,7 @@ function Register() {
         console.error("❌ Registration failed:", error.response?.data);
         setError(
           error?.response?.data.error ||
-            "Something went wrong. Please try again."
+            "Something went wrong. Please try again.",
         );
       } else {
         setError("Network error. Please check your connection.");

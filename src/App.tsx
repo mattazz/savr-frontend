@@ -15,17 +15,14 @@ function App() {
     <Router>
       <CustomNav />
       <Routes>
-        <Route path="/" element={
-              <HomeMatt />
-          } />
+        <Route path="/" element={<HomeMatt />} />
         <Route path="/shop" element={<ShopMatt />} />
         <Route
           path="/track"
           element={
             <AuthenticatedRoute>
               <TrackProductPage />
-              </AuthenticatedRoute>
-
+            </AuthenticatedRoute>
           }
         />
         <Route

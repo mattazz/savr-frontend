@@ -46,7 +46,7 @@ export default function SearchBar() {
     if (value.trim()) {
       try {
         const response = await axios.get(
-          `${backendUrl}api/products/autocompletion?query=${value}`
+          `${backendUrl}api/products/autocompletion?query=${value}`,
         );
         setSuggestions(response.data.suggestions);
       } catch {
@@ -71,7 +71,7 @@ export default function SearchBar() {
       case "ArrowDown":
         e.preventDefault();
         setSelectedIndex((prev) =>
-          prev < suggestions.length - 1 ? prev + 1 : prev
+          prev < suggestions.length - 1 ? prev + 1 : prev,
         );
         break;
       case "ArrowUp":
@@ -149,16 +149,18 @@ export default function SearchBar() {
                 <button
                   onClick={() => handleSuggestionClick(suggestion)}
                   className={`w-full px-4 py-3 text-left transition duration-150 flex items-center gap-3 group
-                    ${index === selectedIndex
-                      ? "bg-teal-50 text-teal-700"
-                      : "hover:bg-gray-50 text-gray-700 hover:text-teal-600"
+                    ${
+                      index === selectedIndex
+                        ? "bg-teal-50 text-teal-700"
+                        : "hover:bg-gray-50 text-gray-700 hover:text-teal-600"
                     }`}
                 >
                   <TrendingUp
-                    className={`h-5 w-5 transition-colors ${index === selectedIndex
-                      ? "text-teal-500"
-                      : "text-gray-400 group-hover:text-teal-500"
-                      }`}
+                    className={`h-5 w-5 transition-colors ${
+                      index === selectedIndex
+                        ? "text-teal-500"
+                        : "text-gray-400 group-hover:text-teal-500"
+                    }`}
                   />
                   <span className="truncate">{suggestion.name}</span>
                 </button>

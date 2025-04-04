@@ -30,14 +30,14 @@ function Login() {
           email,
           password,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       setUser(response.data);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         setError(
-          err?.response?.data?.message || "Login failed. Please try again."
+          err?.response?.data?.message || "Login failed. Please try again.",
         );
       }
     } finally {
