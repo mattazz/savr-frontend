@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SearchBar from "./Searchbar";
 import { LoaderIcon } from "lucide-react";
+import { backendUrl } from "../config/constants";
 
 interface Product {
   id: number;
@@ -30,7 +31,7 @@ function ShopMatt() {
       setFetching(true)
       try {
         const response = await fetch(
-          `http://localhost:3000/api/scrape/scrape?keyword=${keyword}`
+          `${backendUrl}api/scrape/scrape?keyword=${keyword}`
         );
         const data = await response.json();
 

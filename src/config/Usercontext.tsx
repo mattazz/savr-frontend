@@ -32,7 +32,6 @@ export function UserProvider({ children }: { children: ReactNode }) {
             timeout: 5000,
           },
         );
-
         setUser(response.data.user);
       } catch (error) {
         if (axios.isAxiosError(error)) {
