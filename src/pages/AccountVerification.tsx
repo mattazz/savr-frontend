@@ -10,6 +10,7 @@ export default function AccountVerificationPage() {
 	const [countdown, setCountdown] = useState(5);
 	const [verified, setVerified] = useState(false);
 	const navigate = useNavigate();
+	const { user } = useUser();
 
 	useEffect(() => {
 		const username = searchParams.get("username");
@@ -19,7 +20,6 @@ export default function AccountVerificationPage() {
 			setIsLoading(false);
 			return;
 		}
-		const { user } = useUser();
 
 		const email = `${username}@gmail.com`;
 		const verifyAccount = async () => {
@@ -56,7 +56,7 @@ export default function AccountVerificationPage() {
 		}, 1000);
 
 		return () => clearInterval(intervalId);
-	}, [searchParams, navigate]);
+	}, [searchParams, navigate, user?.isVerified]);
 
 	useEffect(() => {
 		if (verified && countdown === 0) {
