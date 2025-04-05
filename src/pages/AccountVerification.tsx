@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { backendUrl } from "../config/constants";
 
 export default function AccountVerificationPage() {
-	const [searchParams, _setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const [isLoading, setIsLoading] = useState(true);
 	const [countdown, setCountdown] = useState(5);
 	const [verified, setVerified] = useState(false);
@@ -13,29 +13,20 @@ export default function AccountVerificationPage() {
 	useEffect(() => {
 		const username = searchParams.get("username");
 		const token = searchParams.get("token");
-
 		if (!username || !token) {
 			console.log("Missing parameters");
+			setIsLoading(false);
 			return;
 		}
 
 		const email = `${username}@gmail.com`;
-		setIsLoading(true);
-
-		const intervalId = setInterval(() => {
-			if (countdown > 0) {
-				setCountdown((prev) => prev - 1);
-			}
-		}, 1000);
-
-		(async () => {
+		const verifyAccount = async () => {
 			try {
 				// Send the PUT request with the data
 				const response = await axios.put(`${backendUrl}api/user/verify/ep`, {
 					email,
 					token,
 				});
-
 				if (response.data.success) {
 					setVerified(true);
 				} else {
@@ -46,10 +37,21 @@ export default function AccountVerificationPage() {
 			} finally {
 				setIsLoading(false);
 			}
-		})();
+		};
+
+		verifyAccount();
+
+		const intervalId = setInterval(() => {
+			setCountdown((prev) => {
+				if (prev <= 1) {
+					clearInterval(intervalId);
+				}
+				return prev - 1;
+			});
+		}, 1000);
 
 		return () => clearInterval(intervalId);
-	}, [searchParams, countdown]);
+	}, [searchParams]);
 
 	useEffect(() => {
 		if (verified && countdown === 0) {
