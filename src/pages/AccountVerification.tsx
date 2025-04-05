@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { backendUrl } from "../config/constants";
+import { useUser } from "../utils/hooks";
 
 export default function AccountVerificationPage() {
 	const [searchParams] = useSearchParams();
@@ -18,16 +19,20 @@ export default function AccountVerificationPage() {
 			setIsLoading(false);
 			return;
 		}
+		const { user } = useUser();
 
 		const email = `${username}@gmail.com`;
 		const verifyAccount = async () => {
 			try {
+				if (user?.isVerified) {
+					navigate("/");
+				}
 				// Send the PUT request with the data
 				const response = await axios.put(`${backendUrl}api/user/verify/ep`, {
 					email,
 					token,
 				});
-				if (response.data.success) {
+				if (response.data.success || response.data.isVerified === true) {
 					setVerified(true);
 				} else {
 					console.log("Verification failed");
@@ -51,7 +56,7 @@ export default function AccountVerificationPage() {
 		}, 1000);
 
 		return () => clearInterval(intervalId);
-	}, [searchParams]);
+	}, [searchParams, navigate]);
 
 	useEffect(() => {
 		if (verified && countdown === 0) {
