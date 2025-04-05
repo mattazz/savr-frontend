@@ -6,9 +6,6 @@ import { useUser } from "../utils/hooks";
 
 export default function AccountVerificationPage() {
 	const [searchParams] = useSearchParams();
-	const [isLoading, setIsLoading] = useState(true);
-	const [countdown, setCountdown] = useState(5);
-	const [verified, setVerified] = useState(false);
 	const navigate = useNavigate();
 	const { user } = useUser();
 
@@ -17,7 +14,6 @@ export default function AccountVerificationPage() {
 		const token = searchParams.get("token");
 		if (!username || !token) {
 			console.log("Missing parameters");
-			setIsLoading(false);
 			return;
 		}
 
@@ -33,65 +29,17 @@ export default function AccountVerificationPage() {
 					token,
 				});
 				if (response.data.success || response.data.isVerified === true) {
-					setVerified(true);
 				} else {
 					console.log("Verification failed");
 				}
 			} catch (e) {
 				console.error("Verification failed", e);
 			} finally {
-				setIsLoading(false);
+				navigate("/", { replace: true });
 			}
 		};
 
 		verifyAccount();
-
-		const intervalId = setInterval(() => {
-			setCountdown((prev) => {
-				if (prev <= 1) {
-					clearInterval(intervalId);
-				}
-				return prev - 1;
-			});
-		}, 1000);
-
-		return () => clearInterval(intervalId);
 	}, [searchParams, navigate, user?.isVerified]);
-
-	useEffect(() => {
-		if (verified && countdown === 0) {
-			navigate("/"); // Redirect after countdown reaches 0
-		}
-	}, [countdown, verified, navigate]);
-
-	return (
-		<div>
-			{isLoading ? (
-				<p>Verifying your account...</p>
-			) : verified ? (
-				<div>
-					<p>
-						Your account has been verified! You will be redirected to the
-						homepage in {countdown} seconds.
-					</p>
-					<p>
-						<a
-							href="/"
-							onClick={(e) => {
-								e.preventDefault();
-								navigate("/");
-							}}
-						>
-							Click here to go now
-						</a>
-					</p>
-				</div>
-			) : (
-				<p>
-					Verification failed. Please check your token or request a new
-					verification email.
-				</p>
-			)}
-		</div>
-	);
+	return <></>;
 }
