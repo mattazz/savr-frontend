@@ -3,7 +3,7 @@ import { useUser } from "../utils/hooks";
 import SearchBar from "./Searchbar";
 
 function HomeMatt() {
-  const { user } = useUser();
+  const { user, loading } = useUser();
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
@@ -19,7 +19,7 @@ function HomeMatt() {
             <SearchBar />
           </div>
 
-          {!user && (
+          {!user && !loading && (
             <div className="pt-8">
               <p className="text-gray-600">
                 <a
