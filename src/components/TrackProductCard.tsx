@@ -32,7 +32,6 @@ export default function TrackProductsCard({
   productId,
 }: TrackProductCardProps) {
   const handleDelete = () => {
-    // TODO  -> I think need the object ID and the user ID in order to delete the product from MongoDB
     onDelete();
   };
 
