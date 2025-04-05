@@ -24,10 +24,14 @@ export default function AccountVerificationPage() {
 					navigate("/");
 				}
 				// Send the PUT request with the data
-				const response = await axios.put(`${backendUrl}api/user/verify/ep`, {
-					email,
-					token,
-				});
+				const response = await axios.put(
+					`${backendUrl}api/user/verify/ep`,
+					{
+						email,
+						token,
+					},
+					{ withCredentials: true },
+				);
 				if (response.data.success || response.data.isVerified === true) {
 				} else {
 					console.log("Verification failed");
