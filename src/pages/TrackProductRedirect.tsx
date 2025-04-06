@@ -47,5 +47,16 @@ export default function TrackProductRedirect() {
     trackProduct();
   }, [location.pathname, navigate]);
 
-  return <div>Tracking product...</div>;
-}
+  return (
+    <div style={{ 
+      display: "flex", 
+      justifyContent: "center", 
+      alignItems: "center", 
+      height: "100vh", 
+      fontFamily: "Arial, sans-serif", 
+      fontSize: "1.5rem", 
+      color: "#555" 
+    }}>
+      <p>🔄 Tracking product... Please wait.</p>
+    </div>
+  );}
