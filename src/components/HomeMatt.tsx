@@ -1,6 +1,7 @@
 import "../App.css";
 import { useUser } from "../utils/hooks";
-import SearchBar from "./Searchbar";
+import Login from "./Login";
+// import SearchBar from "./Searchbar";
 
 function HomeMatt() {
   const { user, loading } = useUser();
@@ -12,26 +13,23 @@ function HomeMatt() {
             <h1 className="text-5xl font-bold text-gray-900 tracking-tight">
               SAVR
             </h1>
-            <p className="text-xl text-gray-600">All the prices in a click.</p>
+            <p className="text-xl text-gray-600">
+              Get notified of the lowest deals.
+            </p>
           </div>
 
-          <div className="max-w-2xl mx-auto">
+          {/* <div className="max-w-2xl mx-auto">
             <SearchBar />
-          </div>
+          </div> */}
 
-          {!user && !loading && (
-            <div className="pt-8">
-              <p className="text-gray-600">
-                <a
-                  href="/login"
-                  className="text-teal-600 hover:text-teal-700 font-medium"
-                >
-                  Login
-                </a>{" "}
-                to save your products ❤️
-              </p>
-            </div>
-          )}
+          <div>
+            <a
+              href={user ? "/track" : "/login"}
+              className="inline-block px-6 py-3 text-white bg-teal-600 hover:bg-teal-700 font-medium text-lg rounded-lg shadow-md"
+            >
+              Start Tracking Now
+            </a>
+          </div>
         </div>
       </div>
     </div>

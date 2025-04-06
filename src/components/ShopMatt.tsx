@@ -79,7 +79,7 @@ function ShopMatt() {
             <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
               SAVR
             </h1>
-            <p className="text-lg text-gray-600">All the prices in a click.</p>
+            <p className="text-lg text-gray-600">Get notified of the lowest deals.</p>
           </div>
           <div className="max-w-2xl mx-auto">
             <SearchBar />
