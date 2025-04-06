@@ -54,24 +54,29 @@ export default function TrackProductPage() {
 
 	const handleTrackProduct = async () => {
 		if (!productUrl.trim()) return;
-
+	
 		setIsLoading(true);
-
+	
 		try {
 			const response = await axios.get(
 				`${backendUrl}api/crawl/BB?url=${productUrl}`,
 				{ withCredentials: true },
 			);
-
+	
 			console.log("Response from /BB:", response.data);
-
+	
 			const resProduct = response.data.product;
 			if (resProduct) {
 				const productExists = products.some(
 					(product) => product.url === resProduct.url,
 				);
 				if (!productExists) {
-					setProducts((prevProducts) => [...prevProducts, resProduct]);
+					// Re-fetch the saved products from the backend
+					const savedProductsResponse = await axios.get(
+						`${backendUrl}api/user/getSavedProducts`,
+						{ withCredentials: true },
+					);
+					setProducts(savedProductsResponse.data.products);
 				} else {
 					console.warn("Product already exists in the list.");
 				}
@@ -83,7 +88,6 @@ export default function TrackProductPage() {
 			setProductUrl("");
 		}
 	};
-
   const handleDeleteProduct = async (productId: string) => {
     try {
       await axios.delete(`${backendUrl}api/user/deleteTrackedProduct`, {
