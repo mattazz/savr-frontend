@@ -63,6 +63,8 @@ export default function TrackProductPage() {
 				{ withCredentials: true },
 			);
 
+			console.log("Response from /BB:", response.data);
+
 			const resProduct = response.data.product;
 			if (resProduct) {
 				const productExists = products.some(

@@ -151,7 +151,7 @@ export default function ProductDetailsPage() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <a href="/" className="ml-1 text-blue-600 hover:text-blue-800">
+                <a href="/track" className="ml-1 text-blue-600 hover:text-blue-800">
                   Products
                 </a>
               </div>
