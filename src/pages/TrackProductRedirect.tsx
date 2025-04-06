@@ -29,11 +29,12 @@ export default function TrackProductRedirect() {
         const resProduct = response.data.product;
 
         if (resProduct) {
-          await axios.post(
-            `${backendUrl}api/user/saveProduct`,
-            { product: resProduct },
-            { withCredentials: true },
-          );
+          // await axios.post(
+          //   `${backendUrl}api/user/saveProduct`,
+          //   { product: resProduct },
+          //   { withCredentials: true },
+          // );
+          navigate("/track");
         }
 
         navigate("/track");
