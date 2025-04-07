@@ -192,10 +192,11 @@ export default function ProductDetailsPage() {
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`h-24 bg-gray-100 rounded-md overflow-hidden border-2 ${currentImageIndex === index
+                    className={`h-24 bg-gray-100 rounded-md overflow-hidden border-2 ${
+                      currentImageIndex === index
                         ? "border-blue-500"
                         : "border-transparent"
-                      }`}
+                    }`}
                   >
                     <img
                       src={image}
@@ -222,10 +223,11 @@ export default function ProductDetailsPage() {
                     {[...Array(5)].map((_, i) => (
                       <svg
                         key={i}
-                        className={`w-5 h-5 ${i < Math.floor(product.customerRating)
+                        className={`w-5 h-5 ${
+                          i < Math.floor(product.customerRating)
                             ? "text-yellow-400"
                             : "text-gray-300"
-                          }`}
+                        }`}
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
