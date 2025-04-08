@@ -61,7 +61,7 @@ export default function TrackProductsCard({
 
           {/* Price Section */}
           <div className="flex items-center gap-2">
-            {regularPrice ? (
+            {regularPrice !== salePrice ? (
               <>
                 <span className="text-gray-400 text-sm line-through">
                   ${regularPrice}

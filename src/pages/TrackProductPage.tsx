@@ -71,12 +71,8 @@ export default function TrackProductPage() {
           (product) => product.url === resProduct.url
         );
         if (!productExists) {
-          // Re-fetch the saved products from the backend
-          const savedProductsResponse = await axios.get(
-            `${backendUrl}api/user/getSavedProducts`,
-            { withCredentials: true }
-          );
-          setProducts(savedProductsResponse.data.products);
+          // Directly add the new product to the state
+          setProducts((prevProducts) => [...prevProducts, resProduct]);
         } else {
           console.warn("Product already exists in the list.");
         }
