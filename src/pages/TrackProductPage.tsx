@@ -8,13 +8,13 @@ import { useNavigate } from "react-router-dom";
 interface Product {
   name: string;
   brandName: string;
-  priceWithoutEhf: number;
   regularPrice: number;
+  salePrice: number;
   isOnSale: boolean;
   saving: number;
   customerRating: number;
   customerRatingCount: number;
-  additionalImages: string[];
+  images: string[];
   url: string;
   _id: string;
 }
@@ -141,24 +141,27 @@ export default function TrackProductPage() {
             Saved Products
           </h3>
           <ul className="w-full flex flex-wrap gap-4 justify-center">
-            {products.map((product, index) => (
-              <TrackProductsCard
-                productId={product._id}
-                key={product.url}
-                index={index}
-                name={product.name}
-                brandName={product.brandName}
-                additionalImages={product.additionalImages}
-                priceWithoutEhf={product.priceWithoutEhf}
-                regularPrice={product.regularPrice}
-                isOnSale={product.isOnSale}
-                saving={product.saving}
-                customerRating={product.customerRating}
-                customerRatingCount={product.customerRatingCount}
-                url={product.url}
-                onDelete={() => handleDeleteProduct(product._id)}
-              />
-            ))}
+            {products.map((product, index) => {
+              console.log("Product:", product);
+              return (
+                <TrackProductsCard
+                  productId={product._id}
+                  key={product.url}
+                  index={index}
+                  name={product.name}
+                  brandName={product.brandName}
+                  images={product.images}
+                  salePrice={product.salePrice}
+                  regularPrice={product.regularPrice}
+                  // isOnSale={product.isOnSale}
+                  // saving={product.saving}
+                  customerRating={product.customerRating}
+                  customerRatingCount={product.customerRatingCount}
+                  url={product.url}
+                  onDelete={() => handleDeleteProduct(product._id)}
+                />
+              );
+            })}
           </ul>
         </div>
       )}

@@ -17,25 +17,24 @@ interface ProductDetails {
   _id: string;
   name: string;
   brandName: string;
-  priceWithoutEhf: number;
-  priceWithEhf: number;
-  regularPrice: number[];
-  isOnSale: boolean;
-  saving: number;
+  salePrice: number;
+  regularPrice: number;
+  // isOnSale: boolean;
+  // saving: number;
   customerRating: number;
   customerRatingCount: number;
-  additionalImages: string[];
+  images: string[];
   url: string;
   longDescription: string;
-  saleStartDate: string;
-  saleEndDate: string;
+  // saleStartDate: string;
+  // saleEndDate: string;
   sku: string;
-  grade: string;
-  hasFrenchContent: boolean;
-  altLangSeoText: string;
-  isClearance: boolean;
-  isOnlineOnly: boolean;
-  isMarketplace: boolean;
+  // grade: string;
+  // hasFrenchContent: boolean;
+  // altLangSeoText: string;
+  // isClearance: boolean;
+  // isOnlineOnly: boolean;
+  // isMarketplace: boolean;
   priceDateHistory: {
     Number: number;
     Date: string;
@@ -69,7 +68,7 @@ export default function ProductDetailsPage() {
       try {
         const response = await axios.get(
           `${backendUrl}api/products/history?productId=${productId}`,
-          { withCredentials: true },
+          { withCredentials: true }
         );
         console.log(response);
         setProduct(response.data.product);
@@ -115,7 +114,7 @@ export default function ProductDetailsPage() {
     );
   }
 
-  const daysLeft = calculateDaysLeft(product.saleEndDate);
+  // const daysLeft = calculateDaysLeft(product.saleEndDate);
 
   // Prepare data for the chart
   const chartData = product.priceDateHistory
@@ -151,7 +150,10 @@ export default function ProductDetailsPage() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <a href="/track" className="ml-1 text-blue-600 hover:text-blue-800">
+                <a
+                  href="/track"
+                  className="ml-1 text-blue-600 hover:text-blue-800"
+                >
                   Products
                 </a>
               </div>
@@ -182,20 +184,21 @@ export default function ProductDetailsPage() {
             <div className="md:w-1/2 p-6">
               <div className="h-96 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
                 <img
-                  src={product.additionalImages[currentImageIndex]}
+                  src={product.images[currentImageIndex]}
                   alt={product.name}
                   className="max-h-full max-w-full object-contain"
                 />
               </div>
               <div className="grid grid-cols-4 gap-2">
-                {product.additionalImages.map((image, index) => (
+                {product.images.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`h-24 bg-gray-100 rounded-md overflow-hidden border-2 ${currentImageIndex === index
+                    className={`h-24 bg-gray-100 rounded-md overflow-hidden border-2 ${
+                      currentImageIndex === index
                         ? "border-blue-500"
                         : "border-transparent"
-                      }`}
+                    }`}
                   >
                     <img
                       src={image}
@@ -222,10 +225,11 @@ export default function ProductDetailsPage() {
                     {[...Array(5)].map((_, i) => (
                       <svg
                         key={i}
-                        className={`w-5 h-5 ${i < Math.floor(product.customerRating)
+                        className={`w-5 h-5 ${
+                          i < Math.floor(product.customerRating)
                             ? "text-yellow-400"
                             : "text-gray-300"
-                          }`}
+                        }`}
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -238,31 +242,31 @@ export default function ProductDetailsPage() {
                     {product.customerRatingCount} reviews)
                   </span>
                 </div>
-                <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+                {/* <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">
                   {product.grade}
-                </span>
+                </span> */}
               </div>
 
               <div className="mb-6">
-                {product.isOnSale && (
+                {product.regularPrice !== product.salePrice && (
                   <div className="mb-2">
                     <span className="text-sm text-gray-500 line-through mr-2">
-                      ${product.regularPrice[0].toFixed(2)}
+                      ${product.regularPrice}
                     </span>
-                    <span className="bg-red-100 text-red-800 text-sm font-semibold px-2 py-0.5 rounded">
+                    {/* <span className="bg-red-100 text-red-800 text-sm font-semibold px-2 py-0.5 rounded">
                       Save ${product.saving.toFixed(2)}
-                    </span>
+                    </span> */}
                   </div>
                 )}
                 <div className="text-3xl font-bold text-gray-900 mb-1">
-                  ${product.priceWithoutEhf.toFixed(2)}
+                  ${product.salePrice.toFixed(2)}
                 </div>
-                {product.isOnSale && (
+                {/* {product.isOnSale && (
                   <div className="text-green-600 font-medium">
                     Sale ends in {daysLeft} day{daysLeft !== 1 ? "s" : ""} (
                     {formatDate(product.saleEndDate)})
                   </div>
-                )}
+                )} */}
               </div>
 
               <div className="mb-6">
@@ -345,7 +349,7 @@ export default function ProductDetailsPage() {
                   {product.priceDateHistory
                     .sort(
                       (a, b) =>
-                        new Date(b.Date).getTime() - new Date(a.Date).getTime(),
+                        new Date(b.Date).getTime() - new Date(a.Date).getTime()
                     )
                     .map((entry, index) => (
                       <tr key={index}>

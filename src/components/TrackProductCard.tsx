@@ -4,11 +4,11 @@ interface TrackProductCardProps {
   index: number;
   name: string;
   brandName: string;
-  additionalImages: string[];
-  priceWithoutEhf: number;
+  images: string[];
+  salePrice: number;
   regularPrice: number;
-  isOnSale: boolean;
-  saving: number;
+  // isOnSale: boolean;
+  // saving: number;
   customerRating: number;
   customerRatingCount: number;
   url: string;
@@ -20,11 +20,11 @@ export default function TrackProductsCard({
   index,
   name,
   brandName,
-  additionalImages,
-  priceWithoutEhf,
+  images,
+  salePrice,
   regularPrice,
-  isOnSale,
-  saving,
+  // isOnSale,
+  // saving,
   customerRating,
   url,
   customerRatingCount,
@@ -35,6 +35,8 @@ export default function TrackProductsCard({
     onDelete();
   };
 
+  console.log(`product images: ${images[0]}`);
+
   return (
     <li
       key={index}
@@ -44,8 +46,8 @@ export default function TrackProductsCard({
         {/* Product Image */}
         <div className="relative w-full aspect-square overflow-hidden rounded-lg">
           <img
-            src={additionalImages[0]}
-            alt={name}
+            src={images[0] || ""}
+            alt={name || "Product Image"}
             className="w-full h-full object-cover transition duration-300 hover:scale-105"
           />
         </div>
@@ -59,13 +61,13 @@ export default function TrackProductsCard({
 
           {/* Price Section */}
           <div className="flex items-center gap-2">
-            {isOnSale ? (
+            {regularPrice ? (
               <>
                 <span className="text-gray-400 text-sm line-through">
                   ${regularPrice}
                 </span>
                 <span className="text-teal-600 font-semibold text-lg">
-                  ${priceWithoutEhf}
+                  ${salePrice}
                 </span>
               </>
             ) : (
@@ -76,11 +78,11 @@ export default function TrackProductsCard({
           </div>
 
           {/* Sale Badge */}
-          {isOnSale && (
+          {/* {isOnSale && (
             <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">
               Save ${saving}
             </div>
-          )}
+          )} */}
 
           {/* Rating */}
           <div className="flex items-center gap-1 text-sm text-gray-600">
