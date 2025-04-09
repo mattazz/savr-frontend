@@ -43,13 +43,20 @@ interface ProductDetails {
 }
 
 // Custom tooltip for the chart
-//@ts-ignore
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
+const CustomTooltip = ({
+  active,
+  payload,
+  label,
+}: {
+  active: boolean;
+  payload: number;
+  label: string;
+}) => {
+  if (active && payload) {
     return (
       <div className="bg-white p-3 border border-gray-200 rounded shadow-lg">
         <p className="font-semibold">{new Date(label).toLocaleDateString()}</p>
-        <p className="text-blue-600">${payload[0].value.toFixed(2)}</p>
+        <p className="text-blue-600">${payload}</p>
       </div>
     );
   }
@@ -92,12 +99,12 @@ export default function ProductDetailsPage() {
     });
   };
 
-  const calculateDaysLeft = (endDate: string) => {
-    const today = new Date();
-    const saleEnd = new Date(endDate);
-    const diffTime = saleEnd.getTime() - today.getTime();
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  };
+  // const calculateDaysLeft = (endDate: string) => {
+  //   const today = new Date();
+  //   const saleEnd = new Date(endDate);
+  //   const diffTime = saleEnd.getTime() - today.getTime();
+  //   return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  // };
 
   if (isLoading) {
     return (
@@ -322,6 +329,7 @@ export default function ProductDetailsPage() {
                     ]}
                     tickFormatter={(value) => `$${value.toFixed(2)}`}
                   />
+                  {/* @ts-expect-error expect error here*/}
                   <Tooltip content={<CustomTooltip />} />
                   <Legend />
                   <Line
