@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 interface TrackProductCardProps {
   index: number;
@@ -34,6 +35,9 @@ export default function TrackProductsCard({
   const handleDelete = () => {
     onDelete();
   };
+
+  const [showAlertForm, setShowAlertForm] = useState(false);
+  const [alertPrice, setAlertPrice] = useState("");
 
   console.log(`product images: ${images[0]}`);
 
@@ -104,6 +108,7 @@ export default function TrackProductsCard({
           </Link>
 
           <button
+            type="button"
             onClick={handleDelete}
             className="w-full flex items-center justify-center px-4 py-2 bg-red-50 text-red-600 text-sm font-medium rounded-lg hover:bg-red-100 transition duration-200"
           >
@@ -118,6 +123,44 @@ export default function TrackProductsCard({
           >
             Buy Now
           </a>
+
+          {/* 🔔 Alert Price Button */}
+          <button
+            type="button"
+            onClick={() => setShowAlertForm(!showAlertForm)}
+            className="w-full flex items-center justify-center px-4 py-2 bg-yellow-100 text-yellow-800 text-sm font-medium rounded-lg hover:bg-yellow-200 transition duration-200"
+          >
+            {showAlertForm ? "Cancel Alert" : "🔔 Alert Price"}
+          </button>
+
+          {/* Alert Price Form */}
+          {showAlertForm && (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                //TODO:handle add alert logic here
+                setAlertPrice("");
+                setShowAlertForm(false);
+              }}
+              className="space-y-2"
+            >
+              <input
+                type="number"
+                step="0.01"
+                placeholder="Target Price ($)"
+                value={alertPrice}
+                onChange={(e) => setAlertPrice(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                required
+              />
+              <button
+                type="submit"
+                className="w-full px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition"
+              >
+                Set Alert
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </li>

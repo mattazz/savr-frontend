@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
 import TrackProductsCard from "../components/TrackProductCard";
@@ -23,9 +24,14 @@ export default function TrackProductPage() {
   const [productUrl, setProductUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const [productUrl, setProductUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
 
   const { user, loading } = useUser();
+  const { user, loading } = useUser();
 
+  const navigate = useNavigate();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,10 +57,21 @@ export default function TrackProductPage() {
       loadData();
     }
   }, [user, loading, navigate]);
+          if (userSavedProducts.length > 0) {
+            setProducts([...userSavedProducts]);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      loadData();
+    }
+  }, [user, loading, navigate]);
 
   const handleTrackProduct = async () => {
     if (!productUrl.trim()) return;
 
+    setIsLoading(true);
     setIsLoading(true);
 
     try {
@@ -103,7 +120,20 @@ export default function TrackProductPage() {
       </div>
     );
   }
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50 flex items-center justify-center">
+        <div className="animate-pulse text-gray-500">Loading user data...</div>
+      </div>
+    );
+  }
 
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-teal-50">
+      <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md my-4">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+          Track a Product
+        </h2>
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-teal-50">
       <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md my-4">
