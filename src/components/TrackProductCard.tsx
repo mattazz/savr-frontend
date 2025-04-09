@@ -38,7 +38,6 @@ export default function TrackProductsCard({
 
   const [showAlertForm, setShowAlertForm] = useState(false);
   const [alertPrice, setAlertPrice] = useState("");
-  const [email, setEmail] = useState("");
 
   return (
     <li
@@ -139,7 +138,6 @@ export default function TrackProductsCard({
                 e.preventDefault();
                 //TODO:handle add alert logic here
                 setAlertPrice("");
-                setEmail("");
                 setShowAlertForm(false);
               }}
               className="space-y-2"
@@ -150,14 +148,6 @@ export default function TrackProductsCard({
                 placeholder="Target Price ($)"
                 value={alertPrice}
                 onChange={(e) => setAlertPrice(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                 required
               />
