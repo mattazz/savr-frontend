@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
 import TrackProductsCard from "../components/TrackProductCard";
@@ -24,14 +23,9 @@ export default function TrackProductPage() {
   const [productUrl, setProductUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
-  const [productUrl, setProductUrl] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
 
   const { user, loading } = useUser();
-  const { user, loading } = useUser();
 
-  const navigate = useNavigate();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,21 +51,10 @@ export default function TrackProductPage() {
       loadData();
     }
   }, [user, loading, navigate]);
-          if (userSavedProducts.length > 0) {
-            setProducts([...userSavedProducts]);
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
-      loadData();
-    }
-  }, [user, loading, navigate]);
 
   const handleTrackProduct = async () => {
     if (!productUrl.trim()) return;
 
-    setIsLoading(true);
     setIsLoading(true);
 
     try {
@@ -80,15 +63,12 @@ export default function TrackProductPage() {
         { withCredentials: true }
       );
 
-      console.log("Response from /BB:", response.data);
-
       const resProduct = response.data.product;
       if (resProduct) {
         const productExists = products.some(
           (product) => product.url === resProduct.url
         );
         if (!productExists) {
-          // Directly add the new product to the state
           setProducts((prevProducts) => [...prevProducts, resProduct]);
         } else {
           console.warn("Product already exists in the list.");
@@ -101,6 +81,7 @@ export default function TrackProductPage() {
       setProductUrl("");
     }
   };
+
   const handleDeleteProduct = async (productId: string) => {
     try {
       await axios.delete(`${backendUrl}api/user/deleteTrackedProduct`, {
@@ -120,20 +101,7 @@ export default function TrackProductPage() {
       </div>
     );
   }
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50 flex items-center justify-center">
-        <div className="animate-pulse text-gray-500">Loading user data...</div>
-      </div>
-    );
-  }
 
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-teal-50">
-      <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md my-4">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
-          Track a Product
-        </h2>
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-teal-50">
       <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md my-4">
@@ -144,7 +112,7 @@ export default function TrackProductPage() {
         <input
           type="text"
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 mb-4 text-gray-700 placeholder-gray-400"
-          placeholder="Enter product URL "
+          placeholder="Enter product URL (e.g., Walmart, Amazon)"
           value={productUrl}
           onChange={(e) => setProductUrl(e.target.value)}
         />
@@ -157,9 +125,6 @@ export default function TrackProductPage() {
         >
           {isLoading ? "Tracking..." : "Track Product"}
         </button>
-        <p className=" italic text-sm mt-3">
-          *Current BETA only tracks products from BestBuy, more to come! ❤️
-        </p>
       </div>
       {products.length > 0 && (
         <div className="w-full max-w-7xl mx-auto">
@@ -167,27 +132,24 @@ export default function TrackProductPage() {
             Saved Products
           </h3>
           <ul className="w-full flex flex-wrap gap-4 justify-center">
-            {products.map((product, index) => {
-              console.log("Product:", product);
-              return (
-                <TrackProductsCard
-                  productId={product._id}
-                  key={product.url}
-                  index={index}
-                  name={product.name}
-                  brandName={product.brandName}
-                  images={product.images}
-                  salePrice={product.salePrice}
-                  regularPrice={product.regularPrice}
-                  // isOnSale={product.isOnSale}
-                  // saving={product.saving}
-                  customerRating={product.customerRating}
-                  customerRatingCount={product.customerRatingCount}
-                  url={product.url}
-                  onDelete={() => handleDeleteProduct(product._id)}
-                />
-              );
-            })}
+            {products.map((product, index) => (
+              <TrackProductsCard
+                productId={product._id}
+                key={product.url}
+                index={index}
+                name={product.name}
+                brandName={product.brandName}
+                images={product.images}
+                regularPrice={product.regularPrice}
+                salePrice={product.salePrice}
+                // isOnSale={product.isOnSale}
+                // saving={product.saving}
+                customerRating={product.customerRating}
+                customerRatingCount={product.customerRatingCount}
+                url={product.url}
+                onDelete={() => handleDeleteProduct(product._id)}
+              />
+            ))}
           </ul>
         </div>
       )}
