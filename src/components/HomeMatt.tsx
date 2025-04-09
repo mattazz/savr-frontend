@@ -1,6 +1,6 @@
 import "../App.css";
 import { useUser } from "../utils/hooks";
-import Login from "./Login";
+// import Login from "./Login";
 // import SearchBar from "./Searchbar";
 
 function HomeMatt() {
@@ -13,9 +13,7 @@ function HomeMatt() {
             <h1 className="text-5xl font-bold text-gray-900 tracking-tight">
               SAVR
             </h1>
-            <p className="text-xl text-gray-600">
-              Get notified of the lowest deals.
-            </p>
+            <p className="text-xl text-gray-600">Never miss a deal. 💰</p>
           </div>
 
           {/* <div className="max-w-2xl mx-auto">
