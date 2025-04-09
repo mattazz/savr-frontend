@@ -43,7 +43,8 @@ interface ProductDetails {
 }
 
 // Custom tooltip for the chart
-const CustomTooltip = ({ active, payload, label }: any) => {
+//@ts-ignore
+const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white p-3 border border-gray-200 rounded shadow-lg">
