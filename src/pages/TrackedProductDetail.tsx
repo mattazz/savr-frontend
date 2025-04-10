@@ -42,6 +42,12 @@ interface ProductDetails {
   }[];
 }
 
+interface TooltipPayload {
+  payload: {
+    price: number;
+  };
+}
+
 // Custom tooltip for the chart
 const CustomTooltip = ({
   active,
@@ -49,14 +55,15 @@ const CustomTooltip = ({
   label,
 }: {
   active: boolean;
-  payload: number;
+  payload: TooltipPayload[];
   label: string;
 }) => {
-  if (active && payload) {
+  if (active && payload && payload.length > 0) {
+    const data = payload[0].payload;
     return (
       <div className="bg-white p-3 border border-gray-200 rounded shadow-lg">
         <p className="font-semibold">{new Date(label).toLocaleDateString()}</p>
-        <p className="text-blue-600">${payload}</p>
+        <p className="text-blue-600">${data.price.toFixed(2)}</p>
       </div>
     );
   }
