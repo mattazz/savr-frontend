@@ -34,14 +34,18 @@ export default function TrackProductRedirect() {
         const resProduct = response.data.product;
         console.log(`[TrackProductRedirect] - resProduct == ${resProduct}`);
 
-        // if (resProduct) {
-        //   // await axios.post(
-        //   //   `${backendUrl}api/user/saveProduct`,
-        //   //   { product: resProduct },
-        //   //   { withCredentials: true },
-        //   // );
-        //   navigate("/track");
-        // }
+        if (resProduct) {
+          console.log(
+            `[TrackedProductRedirect] - Product successfully tracked and saved`,
+            resProduct
+          );
+          navigate("/track");
+        } else {
+          console.error(
+            `[TrackedProductRedirect] - Failed to track or save product.`
+          );
+          navigate("/track?error=tracking_failed");
+        }
 
         navigate("/track");
       } catch (err) {
