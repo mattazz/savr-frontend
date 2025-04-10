@@ -15,7 +15,12 @@ export default function TrackProductRedirect() {
       try {
         const fullPath = location.pathname;
 
+        console.log(`[TrackProductRedirect] - fullPath == ${fullPath}`);
         const productUrl = fullPath.replace(/^\/saveme\//, "");
+
+        console.log(
+          `[TrackProductRedirect] - fullPath (replace saveMe) == ${productUrl}`
+        );
 
         if (!productUrl) throw new Error("No product URL found");
 
@@ -23,19 +28,20 @@ export default function TrackProductRedirect() {
 
         const response = await axios.get(
           `${backendUrl}api/crawl/BB?url=${encodeURIComponent(productUrl)}`,
-          { withCredentials: true },
+          { withCredentials: true }
         );
 
         const resProduct = response.data.product;
+        console.log(`[TrackProductRedirect] - resProduct == ${resProduct}`);
 
-        if (resProduct) {
-          // await axios.post(
-          //   `${backendUrl}api/user/saveProduct`,
-          //   { product: resProduct },
-          //   { withCredentials: true },
-          // );
-          navigate("/track");
-        }
+        // if (resProduct) {
+        //   // await axios.post(
+        //   //   `${backendUrl}api/user/saveProduct`,
+        //   //   { product: resProduct },
+        //   //   { withCredentials: true },
+        //   // );
+        //   navigate("/track");
+        // }
 
         navigate("/track");
       } catch (err) {
@@ -48,15 +54,18 @@ export default function TrackProductRedirect() {
   }, [location.pathname, navigate]);
 
   return (
-    <div style={{ 
-      display: "flex", 
-      justifyContent: "center", 
-      alignItems: "center", 
-      height: "100vh", 
-      fontFamily: "Arial, sans-serif", 
-      fontSize: "1.5rem", 
-      color: "#555" 
-    }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        fontFamily: "Arial, sans-serif",
+        fontSize: "1.5rem",
+        color: "#555",
+      }}
+    >
       <p>🔄 Tracking product... Please wait.</p>
     </div>
-  );}
+  );
+}
