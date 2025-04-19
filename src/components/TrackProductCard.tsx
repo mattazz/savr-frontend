@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
+import { useToast } from "@/hooks/use-toast";
 
 interface TrackProductCardProps {
   index: number;
@@ -43,10 +44,9 @@ export default function TrackProductsCard({
   const [alertPrice, setAlertPrice] = useState("");
 
   console.log(`product images: ${images[0]}`);
-
+  const { toast } = useToast();
   const handleAlertFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //TODO:handle add alert logic here
     try {
       const response = await axios.post(
         `${backendUrl}api/user/addAlert`,
@@ -59,6 +59,13 @@ export default function TrackProductsCard({
           withCredentials: true,
         },
       );
+
+      if (response) {
+        toast({
+          title: `You will get price Alert for this product`,
+          description: ` You will be notified when  the price of ${name} is below${alertPrice}`,
+        });
+      }
     } catch {
       console.log("couldn't track the product");
     } finally {
