@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import type { FormEvent } from "react";
+import axios from "axios";
+import { backendUrl } from "../config/constants";
 
 interface TrackProductCardProps {
   index: number;
@@ -40,6 +43,29 @@ export default function TrackProductsCard({
   const [alertPrice, setAlertPrice] = useState("");
 
   console.log(`product images: ${images[0]}`);
+
+  const handleAlertFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //TODO:handle add alert logic here
+    try {
+      const response = await axios.post(
+        `${backendUrl}api/user/addAlert`,
+        {
+          //send the alert price and product id to the backend
+          productId,
+          alertPrice,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+    } catch {
+      console.log("couldn't track the product");
+    } finally {
+      setAlertPrice("");
+      setShowAlertForm(false);
+    }
+  };
 
   return (
     <li
@@ -135,15 +161,7 @@ export default function TrackProductsCard({
 
           {/* Alert Price Form */}
           {showAlertForm && (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                //TODO:handle add alert logic here
-                setAlertPrice("");
-                setShowAlertForm(false);
-              }}
-              className="space-y-2"
-            >
+            <form onSubmit={handleAlertFormSubmit} className="space-y-2">
               <input
                 type="number"
                 step="0.01"
