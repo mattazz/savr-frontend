@@ -9,10 +9,12 @@ import TrackProductPage from "./pages/TrackProductPage";
 import TrackProductRedirect from "./pages/TrackProductRedirect";
 import ProductDetailsPage from "./pages/TrackedProductDetail";
 import NotFound from "./pages/NotFound";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   return (
     <Router>
+      <Toaster />
       <CustomNav />
       <Routes>
         <Route path="/" element={<HomeMatt />} />

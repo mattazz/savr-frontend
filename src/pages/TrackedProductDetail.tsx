@@ -83,7 +83,7 @@ export default function ProductDetailsPage() {
       try {
         const response = await axios.get(
           `${backendUrl}api/products/history?productId=${productId}`,
-          { withCredentials: true }
+          { withCredentials: true },
         );
         console.log(response);
         setProduct(response.data.product);
@@ -365,7 +365,7 @@ export default function ProductDetailsPage() {
                   {product.priceDateHistory
                     .sort(
                       (a, b) =>
-                        new Date(b.Date).getTime() - new Date(a.Date).getTime()
+                        new Date(b.Date).getTime() - new Date(a.Date).getTime(),
                     )
                     .map((entry, index) => (
                       <tr key={index}>
