@@ -1,10 +1,9 @@
 import { useUser } from "../utils/hooks";
-import { useNavigate } from "react-router-dom";
 import { User, Mail, CheckCircle, XCircle } from "lucide-react";
+import LogoutButton from "@/components/subcomponents/LogoutButton";
 
 export const ProfilePage = () => {
-  const { user, logout } = useUser();
-  const navigate = useNavigate();
+  const { user } = useUser();
 
   if (!user) {
     return (
@@ -76,17 +75,7 @@ export const ProfilePage = () => {
             </div>
 
             {/* Actions */}
-            <div className="pt-6 border-t border-gray-100">
-              <button
-                onClick={() => {
-                  logout();
-                  navigate("/");
-                }}
-                className="w-full flex items-center justify-center px-4 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-200"
-              >
-                Logout
-              </button>
-            </div>
+            <LogoutButton />
           </div>
         </div>
       </div>
