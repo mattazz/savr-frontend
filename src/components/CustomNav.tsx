@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useUser } from "../utils/hooks";
+import LogoutButton from "./subcomponents/LogoutButton";
 
 function CustomNav() {
-  const { user, logout } = useUser();
+  const { user } = useUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -95,12 +96,11 @@ function CustomNav() {
                   >
                     Saved
                   </Link>
-                  <button
-                    onClick={() => logout()}
-                    className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
-                  >
-                    Logout
-                  </button>
+                  <LogoutButton>
+                    <button className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200">
+                      Logout
+                    </button>
+                  </LogoutButton>
                 </>
               ) : (
                 <Link
@@ -139,12 +139,11 @@ function CustomNav() {
                   >
                     Saved
                   </Link>
-                  <button
-                    onClick={() => logout()}
-                    className="block text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-base font-medium transition duration-200"
-                  >
-                    Logout
-                  </button>
+                  <LogoutButton>
+                    <button className="block text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-base font-medium transition duration-200">
+                      Logout
+                    </button>
+                  </LogoutButton>
                 </>
               ) : (
                 <Link

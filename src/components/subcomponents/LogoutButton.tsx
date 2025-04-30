@@ -11,16 +11,23 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useUser } from "@/utils/hooks";
 
-const LogoutButton = () => {
+const LogoutButton = ({
+  children,
+  triggerClassName = "",
+}: {
+  children: React.ReactNode;
+  triggerClassName?: string;
+}) => {
   const { logout } = useUser();
+
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="pt-6 border-t border-gray-100">
-        Open
+      <AlertDialogTrigger className={triggerClassName}>
+        {children}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Do You Really Want To Logout</AlertDialogTitle>
+          <AlertDialogTitle>Do You Really Want To Logout?</AlertDialogTitle>
           <AlertDialogDescription>
             Your session will be cleared and you will be logged out.
           </AlertDialogDescription>
