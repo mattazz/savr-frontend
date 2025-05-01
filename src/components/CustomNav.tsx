@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useUser } from "../utils/hooks";
 import LogoutButton from "./subcomponents/LogoutButton";
+import { AlertTriangle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 
 function CustomNav() {
   const { user } = useUser();
@@ -10,33 +12,23 @@ function CustomNav() {
   return (
     <>
       {user && !user.isVerified && (
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <svg
-                className="h-5 w-5 text-yellow-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-            <div className="ml-3">
-              <p className="text-sm text-yellow-700 font-medium">
+        <Alert className="bg-yellow-100 border border-yellow-300 text-yellow-800 shadow-sm rounded-lg px-4 py-3">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 mt-1 text-yellow-600" />
+            <div>
+              <AlertTitle className="text-sm font-medium">
                 Your email address is not verified
-              </p>
-              <p className="mt-1 text-sm text-yellow-600">
-                Please check your mailbox to verify your account as unverified
-                accounts are deleted in ten days
-              </p>
+              </AlertTitle>
+              <AlertDescription className="mt-1 text-sm text-yellow-700">
+                Please check your inbox to verify your account. Unverified
+                accounts will be deleted in{" "}
+                <span className="font-medium">10 days</span>.
+              </AlertDescription>
             </div>
           </div>
-        </div>
+        </Alert>
       )}
+
       <nav className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
@@ -97,9 +89,9 @@ function CustomNav() {
                     Saved
                   </Link>
                   <LogoutButton>
-                    <button className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200">
+                    <div className="text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200">
                       Logout
-                    </button>
+                    </div>
                   </LogoutButton>
                 </>
               ) : (
@@ -140,9 +132,9 @@ function CustomNav() {
                     Saved
                   </Link>
                   <LogoutButton>
-                    <button className="block text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-base font-medium transition duration-200">
+                    <div className="block text-gray-700 hover:text-teal-600 px-3 py-2 rounded-md text-base font-medium transition duration-200">
                       Logout
-                    </button>
+                    </div>
                   </LogoutButton>
                 </>
               ) : (

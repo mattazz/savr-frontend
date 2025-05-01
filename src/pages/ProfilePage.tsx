@@ -77,9 +77,9 @@ export const ProfilePage = () => {
             {/* Actions */}
 
             <LogoutButton triggerClassName="pt-6 border-t border-gray-100 w-full">
-              <button className="w-full flex items-center justify-center px-4 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-200">
+              <div className="w-full flex items-center justify-center px-4 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-200">
                 Logout
-              </button>
+              </div>
             </LogoutButton>
           </div>
         </div>
