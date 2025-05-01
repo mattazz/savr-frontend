@@ -8,20 +8,22 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [generalError, setGeneralError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { setUser } = useUser();
 
   const handleLoginClick = () => {
-    window.location.href = backendUrl + "api/user/auth/google";
+    window.location.href = `${backendUrl}"api/user/auth/google`;
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setLoading(true);
-    setError("");
+    setFieldErrors({});
+    setGeneralError("");
 
     try {
       const response = await axios.post(
@@ -36,9 +38,35 @@ function Login() {
       setUser(response.data);
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        setError(
-          err?.response?.data?.message || "Login failed. Please try again.",
-        );
+        console.error("❌ Login failed:", err.response?.data);
+
+        // Handle field-wise validation errors
+        if (
+          err.response?.data.errors &&
+          typeof err.response.data.errors === "object"
+        ) {
+          setFieldErrors(err.response.data.errors);
+        } else if (err.response?.data.error) {
+          // If it's a string, treat as general error
+          if (typeof err.response.data.error === "string") {
+            setGeneralError(err.response.data.error);
+          }
+          // If it's an array of Zod errors, just show the first one as general error
+          else if (Array.isArray(err.response.data.error)) {
+            setGeneralError(
+              err.response.data.error[0]?.message ||
+                "Login failed. Please try again.",
+            );
+          } else {
+            setGeneralError("Login failed. Please try again.");
+          }
+        } else if (err.response?.data.message) {
+          setGeneralError(err.response.data.message);
+        } else {
+          setGeneralError("Login failed. Please try again.");
+        }
+      } else {
+        setGeneralError("Network error. Please check your connection.");
       }
     } finally {
       setLoading(false);
@@ -68,10 +96,17 @@ function Login() {
               id="email"
               type="text"
               placeholder="Enter your username or email"
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
+              className={`w-full px-4 py-3 rounded-lg border ${
+                fieldErrors.email
+                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                  : "border-gray-300 focus:ring-teal-500 focus:border-teal-500"
+              } transition duration-200`}
               value={email}
               onChange={(e) => setEmailOrUsername(e.target.value)}
             />
+            {fieldErrors.email && (
+              <p className="text-sm text-red-600 mt-1">{fieldErrors.email}</p>
+            )}
           </div>
 
           {/* Password Input */}
@@ -87,7 +122,11 @@ function Login() {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200 pr-12"
+                className={`w-full px-4 py-3 rounded-lg border ${
+                  fieldErrors.password
+                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                    : "border-gray-300 focus:ring-teal-500 focus:border-teal-500"
+                } transition duration-200 pr-12`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -99,6 +138,11 @@ function Login() {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
+            {fieldErrors.password && (
+              <p className="text-sm text-red-600 mt-1">
+                {fieldErrors.password}
+              </p>
+            )}
           </div>
 
           {/* Submit Button */}
@@ -136,10 +180,10 @@ function Login() {
             )}
           </button>
 
-          {/* Error Message */}
-          {error && (
+          {/* General Error Message */}
+          {generalError && (
             <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
-              {error}
+              {generalError}
             </div>
           )}
         </form>

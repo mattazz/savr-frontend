@@ -1,6 +1,5 @@
 import { FormEvent, useState } from "react";
 import { Eye, EyeOff, Mail, Lock, UserPlus } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { backendUrl } from "../config/constants";
 import axios from "axios";
 import { useUser } from "../utils/hooks";
@@ -15,7 +14,6 @@ function Register() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [generalError, setGeneralError] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleGoogleRegister = () => {
     window.location.href = backendUrl + "api/user/auth/google";
@@ -47,7 +45,8 @@ function Register() {
       );
 
       setUser(response.data.user);
-      navigate("/");
+
+      window.location.href = "/";
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("❌ Registration failed:", error.response?.data);
