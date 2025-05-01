@@ -28,6 +28,9 @@ function HomeMatt() {
               Start Tracking Now
             </a>
           </div>
+          <div>
+            <p className=" italic text-gray-700 text-gr">This website is a work in progress — we're continually improving it to support tracking across more websites 👍</p>
+          </div>
         </div>
       </div>
     </div>
