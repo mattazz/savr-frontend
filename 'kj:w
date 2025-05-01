@@ -12,8 +12,7 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [generalError, setGeneralError] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -23,12 +22,11 @@ function Register() {
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFieldErrors({});
-    setGeneralError("");
+    setError("");
     setLoading(true);
 
     if (password !== confirmPassword) {
-      setFieldErrors({ confirmPassword: "Passwords do not match!" });
+      setError("Passwords do not match!");
       setLoading(false);
       return;
     }
@@ -51,21 +49,12 @@ function Register() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("❌ Registration failed:", error.response?.data);
-
-        // Handle field-wise validation errors from the backend
-        if (
-          error.response?.data.errors &&
-          typeof error.response.data.errors === "object"
-        ) {
-          setFieldErrors(error.response.data.errors);
-        } else if (error.response?.data.error) {
-          // For backward compatibility with single error message
-          setGeneralError(error.response.data.error);
-        } else {
-          setGeneralError("Something went wrong. Please try again.");
-        }
+        setError(
+          error?.response?.data.error ||
+            "Something went wrong. Please try again.",
+        );
       } else {
-        setGeneralError("Network error. Please check your connection.");
+        setError("Network error. Please check your connection.");
       }
     } finally {
       setLoading(false);
@@ -104,17 +93,10 @@ function Register() {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`w-full pl-10 pr-4 py-3 rounded-lg border ${
-                  fieldErrors.email
-                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                    : "border-gray-300 focus:ring-teal-500 focus:border-teal-500"
-                } transition duration-200`}
+                className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
                 required
               />
             </div>
-            {fieldErrors.email && (
-              <p className="text-sm text-red-600 mt-1">{fieldErrors.email}</p>
-            )}
           </div>
 
           {/* Password Input */}
@@ -135,11 +117,7 @@ function Register() {
                 placeholder="Create a password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={`w-full pl-10 pr-12 py-3 rounded-lg border ${
-                  fieldErrors.password
-                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                    : "border-gray-300 focus:ring-teal-500 focus:border-teal-500"
-                } transition duration-200`}
+                className="w-full pl-10 pr-12 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
                 required
               />
               <button
@@ -150,15 +128,6 @@ function Register() {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
-            <p className="text-xs text-gray-500 mt-1">
-              Must be at least 8 characters with an uppercase letter, number,
-              and special character.
-            </p>
-            {fieldErrors.password && (
-              <p className="text-sm text-red-600 mt-1">
-                {fieldErrors.password}
-              </p>
-            )}
           </div>
 
           {/* Confirm Password Input */}
@@ -179,11 +148,7 @@ function Register() {
                 placeholder="Confirm your password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className={`w-full pl-10 pr-12 py-3 rounded-lg border ${
-                  fieldErrors.confirmPassword
-                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                    : "border-gray-300 focus:ring-teal-500 focus:border-teal-500"
-                } transition duration-200`}
+                className="w-full pl-10 pr-12 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-200"
                 required
               />
               <button
@@ -194,17 +159,12 @@ function Register() {
                 {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
-            {fieldErrors.confirmPassword && (
-              <p className="text-sm text-red-600 mt-1">
-                {fieldErrors.confirmPassword}
-              </p>
-            )}
           </div>
 
-          {/* General Error Message */}
-          {generalError && (
+          {/* Error Message */}
+          {error && (
             <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
-              {generalError}
+              {error}
             </div>
           )}
 
