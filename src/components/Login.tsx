@@ -3,6 +3,7 @@ import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
 import { useUser } from "../utils/hooks";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,6 +12,10 @@ function Login() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [generalError, setGeneralError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectUri = searchParams.get("redirect_uri");
 
   const { setUser } = useUser();
 
@@ -36,6 +41,10 @@ function Login() {
       );
 
       setUser(response.data);
+      //if login is successful and there is a redirect uri in the current path, then redirect to that path mate:)
+      if (redirectUri) {
+        navigate(redirectUri, { replace: true });
+      }
     } catch (err) {
       if (axios.isAxiosError(err)) {
         console.error("❌ Login failed:", err.response?.data);
