@@ -125,6 +125,10 @@ export default function TrackProductPage() {
         >
           {isLoading ? "Tracking..." : "Track Product"}
         </button>
+        <div>
+          <p className=" italic text-gray-700 text-center mt-2">This website is a work in progress — we're continually improving it to support tracking across more websites 👍</p>
+        </div>
+
       </div>
       {products.length > 0 && (
         <div className="w-full max-w-7xl mx-auto">
