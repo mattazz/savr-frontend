@@ -3,9 +3,10 @@ import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
 import { useUser } from "../utils/hooks";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import RedirectIfLoggedInTo from "@/utils/redirector";
 
-function Login() {
+function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +16,8 @@ function Login() {
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  //NOTE: if you are redirecting to login page from any page, this is the name of the url param u wanna pass with the value of
+  //the url you wish to be redirected after user authenticates .i.e redirect_uri
   const redirectUri = searchParams.get("redirect_uri");
 
   const { setUser } = useUser();
@@ -234,4 +237,16 @@ function Login() {
   );
 }
 
+function Login() {
+  const location = useLocation();
+  //get the path of the url we would wanna redirect if the user is authenticated
+  const redirectUri =
+    new URLSearchParams(location.search).get("redirect_uri") || "/";
+
+  return (
+    <RedirectIfLoggedInTo path={redirectUri}>
+      <LoginPage />;
+    </RedirectIfLoggedInTo>
+  );
+}
 export default Login;

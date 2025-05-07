@@ -10,6 +10,10 @@ export interface UserContextType {
   loading: boolean;
   setLoading: (value: boolean) => void;
   user: User | null;
+  /**
+   * This is change state function for the value of user globally
+   * Remember to call your redirect function after this if you would like to redirect after setting up the new value of the user
+   */
   setUser: (user: User | null) => void;
   logout: () => void;
 }

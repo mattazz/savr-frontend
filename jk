@@ -2,9 +2,8 @@ import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
-import { useUser } from "@/utils/hooks";
 
-function TrackProductRedirect() {
+export default function TrackProductRedirect() {
   const location = useLocation();
   const navigate = useNavigate();
   const hasTracked = useRef(false);
@@ -73,26 +72,4 @@ function TrackProductRedirect() {
       <p>🔄 Tracking product... Please wait.</p>
     </div>
   );
-}
-
-/**
- * This is the main component displayed in saveme route, wrapped by logic to redirect if the user is not logged in and with any required enhancements
- */
-export default function TrackProductRedirectIfNotLoggedIn() {
-  const { user, loading } = useUser();
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    //if the user is not authenticated, and the check for authentication is not loading either
-    if (!user && !loading) {
-      //we would navigate the user to the login page with redirect_url with redirect on login to this page
-      const currentPath = location.pathname + location.search;
-      debugger;
-      navigate(`/login?redirect_uri=${encodeURIComponent(currentPath)}`);
-    }
-  }, [navigate, user, loading, location]);
-
-  if (loading) return <p>Loading...</p>;
-  else return <TrackProductRedirect />;
 }

@@ -2,7 +2,6 @@ import "./App.css";
 import { CustomNav, ShopMatt, Login, Register, HomeMatt } from "./components";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AccountVerificationPage from "./pages/AccountVerification";
-import RedirectIfLoggedIn from "./utils/redirector";
 import { ProfilePage } from "./pages/ProfilePage";
 import AuthenticatedRoute from "./utils/authchecker";
 import TrackProductPage from "./pages/TrackProductPage";
@@ -35,27 +34,15 @@ function App() {
             </AuthenticatedRoute>
           }
         />
-        <Route
-          path="/login"
-          element={
-            <RedirectIfLoggedIn>
-              <Login />
-            </RedirectIfLoggedIn>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <RedirectIfLoggedIn>
-              <Register />
-            </RedirectIfLoggedIn>
-          }
-        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/accountverification"
           element={<AccountVerificationPage />}
         />
         <Route path="/productdetail" element={<ProductDetailsPage />} />
+
+        {/* NOTE: even though the route below is not wrapped with route protecter, its a protected route. it has its own custom protection logic:)*/}
         <Route path="/saveme/*" element={<TrackProductRedirect />} />
 
         {/* 404 Route - This should be the last route */}
