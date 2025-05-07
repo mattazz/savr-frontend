@@ -1,10 +1,11 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
 import { useUser } from "../utils/hooks";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import RedirectIfLoggedInTo from "@/utils/redirector";
+import { useToast } from "@/hooks/use-toast";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -239,14 +240,27 @@ function LoginPage() {
 
 function Login() {
   const location = useLocation();
-  //get the path of the url we would wanna redirect if the user is authenticated
+  const { toast } = useToast();
+
+  // Get the path of the URL we would want to redirect to after login
   const redirectUri =
     new URLSearchParams(location.search).get("redirect_uri") || "/";
 
+  useEffect(() => {
+    if (location.search.includes("redirect_uri")) {
+      toast({
+        title: "Login required",
+        description: "Please log in to track products.",
+        variant: "default",
+      });
+    }
+  }, [location.search, toast]);
+
   return (
     <RedirectIfLoggedInTo path={redirectUri}>
-      <LoginPage />;
+      <LoginPage />
     </RedirectIfLoggedInTo>
   );
 }
+
 export default Login;

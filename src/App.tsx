@@ -5,11 +5,11 @@ import AccountVerificationPage from "./pages/AccountVerification";
 import { ProfilePage } from "./pages/ProfilePage";
 import AuthenticatedRoute from "./utils/authchecker";
 import TrackProductPage from "./pages/TrackProductPage";
-import TrackProductRedirect from "./pages/TrackProductRedirect";
 import ProductDetailsPage from "./pages/TrackedProductDetail";
 import NotFound from "./pages/NotFound";
 import { Toaster } from "./components/ui/toaster";
 import RedirectIfLoggedInTo from "./utils/redirector";
+import TrackProductRedirectIfNotLoggedIn from "./pages/TrackProductRedirect";
 
 function App() {
   return (
@@ -51,7 +51,10 @@ function App() {
         <Route path="/productdetail" element={<ProductDetailsPage />} />
 
         {/* NOTE: even though the route below is not wrapped with route protecter, its a protected route. it has its own custom protection logic:)*/}
-        <Route path="/saveme/*" element={<TrackProductRedirect />} />
+        <Route
+          path="/saveme/*"
+          element={<TrackProductRedirectIfNotLoggedIn />}
+        />
 
         {/* 404 Route - This should be the last route */}
         <Route path="*" element={<NotFound />} />

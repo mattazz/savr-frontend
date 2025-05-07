@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { backendUrl } from "../config/constants";
 import { useUser } from "@/utils/hooks";
+import { CreditCard } from "lucide-react";
+import { CardContent } from "@/components/ui/card";
 
 function TrackProductRedirect() {
   const location = useLocation();
@@ -84,6 +86,7 @@ export default function TrackProductRedirectIfNotLoggedIn() {
   const location = useLocation();
 
   useEffect(() => {
+    debugger;
     //if the user is not authenticated, and the check for authentication is not loading either
     if (!user && !loading) {
       //we would navigate the user to the login page with redirect_url with redirect on login to this page
@@ -92,6 +95,19 @@ export default function TrackProductRedirectIfNotLoggedIn() {
     }
   }, [navigate, user, loading, location]);
 
-  if (loading) return <p>Loading...</p>;
-  else return <TrackProductRedirect />;
+  //if loggedin then mount the track product redirect page
+  if (!loading && user) {
+    return (
+      <>
+        <TrackProductRedirect />;
+      </>
+    );
+  } else
+    return (
+      <CreditCard className="mx-auto mt-10 max-w-md shadow-md">
+        <CardContent className="text-center text-muted-foreground text-sm p-6">
+          Just making sure you have an account with us...
+        </CardContent>
+      </CreditCard>
+    );
 }
