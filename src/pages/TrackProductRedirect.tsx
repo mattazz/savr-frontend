@@ -88,7 +88,6 @@ export default function TrackProductRedirectIfNotLoggedIn() {
     if (!user && !loading) {
       //we would navigate the user to the login page with redirect_url with redirect on login to this page
       const currentPath = location.pathname + location.search;
-      debugger;
       navigate(`/login?redirect_uri=${encodeURIComponent(currentPath)}`);
     }
   }, [navigate, user, loading, location]);

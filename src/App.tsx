@@ -9,6 +9,7 @@ import TrackProductRedirect from "./pages/TrackProductRedirect";
 import ProductDetailsPage from "./pages/TrackedProductDetail";
 import NotFound from "./pages/NotFound";
 import { Toaster } from "./components/ui/toaster";
+import RedirectIfLoggedInTo from "./utils/redirector";
 
 function App() {
   return (
@@ -35,7 +36,14 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/register"
+          element={
+            <RedirectIfLoggedInTo>
+              <Register />
+            </RedirectIfLoggedInTo>
+          }
+        />
         <Route
           path="/accountverification"
           element={<AccountVerificationPage />}

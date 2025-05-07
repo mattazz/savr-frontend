@@ -10,7 +10,7 @@ export default function RedirectIfLoggedInTo({
   path = "/",
 }: {
   children: ReactNode;
-  path: string;
+  path?: string;
 }) {
   const { user, loading } = useUser();
   const navigate = useNavigate();
