@@ -24,7 +24,7 @@ function LoginPage() {
   const { setUser } = useUser();
 
   const handleLoginClick = () => {
-    window.location.href = `${backendUrl}"api/user/auth/google`;
+    window.location.href = `${backendUrl}api/user/auth/google`;
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -68,7 +68,7 @@ function LoginPage() {
           else if (Array.isArray(err.response.data.error)) {
             setGeneralError(
               err.response.data.error[0]?.message ||
-                "Login failed. Please try again.",
+              "Login failed. Please try again.",
             );
           } else {
             setGeneralError("Login failed. Please try again.");
@@ -109,11 +109,10 @@ function LoginPage() {
               id="email"
               type="text"
               placeholder="Enter your username or email"
-              className={`w-full px-4 py-3 rounded-lg border ${
-                fieldErrors.email
+              className={`w-full px-4 py-3 rounded-lg border ${fieldErrors.email
                   ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                   : "border-gray-300 focus:ring-teal-500 focus:border-teal-500"
-              } transition duration-200`}
+                } transition duration-200`}
               value={email}
               onChange={(e) => setEmailOrUsername(e.target.value)}
             />
@@ -135,11 +134,10 @@ function LoginPage() {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  fieldErrors.password
+                className={`w-full px-4 py-3 rounded-lg border ${fieldErrors.password
                     ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                     : "border-gray-300 focus:ring-teal-500 focus:border-teal-500"
-                } transition duration-200 pr-12`}
+                  } transition duration-200 pr-12`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
