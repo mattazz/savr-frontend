@@ -79,32 +79,44 @@ export default function ProductDetailsPage() {
 
   useEffect(() => {
     if (!productId) return;
+  
+    const normalizeUrl = (url:string) => {
+      if (!url) return "#";
+      let cleanUrl = url.trim();
+  
+      // Remove any leading https:/ or http:/ variants
+      cleanUrl = cleanUrl.replace(/^https?:\/+/, "");
+  
+      // Prepend proper https://
+      return `https://${cleanUrl}`;
+    };
+  
     async function fetchProductDetails() {
       try {
         const response = await axios.get(
           `${backendUrl}api/products/history?productId=${productId}`,
-          { withCredentials: true },
+          { withCredentials: true }
         );
-        console.log(response);
-        setProduct(response.data.product);
+  
+        const productData = response.data.product;
+  
+        // Normalize product URL
+        if (productData?.url) {
+          productData.url = normalizeUrl(productData.url);
+        }
+  
+        console.log(productData);
+        setProduct(productData);
       } catch (error) {
         console.error("Error fetching product details:", error);
       } finally {
         setIsLoading(false);
       }
     }
-
+  
     fetchProductDetails();
   }, [productId]);
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
 
   // const calculateDaysLeft = (endDate: string) => {
   //   const today = new Date();
